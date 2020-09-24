@@ -25,16 +25,21 @@ typedef struct  s_conf
     unsigned char   ceil_r;
     unsigned char   ceil_g;
     unsigned char   ceil_b;
+    int             ceil_is_set;
     unsigned char   floo_r;
     unsigned char   floo_g;
     unsigned char   floo_b;
+    int             floo_is_set;
+    char            **map;
 }               t_conf;
 
+/*
 typedef struct  s_map
 {
     int prout;
     char **map_tab;
 }               t_map;
+*/
 
 typedef struct  s_rndr
 {
@@ -45,10 +50,12 @@ typedef struct  s_rndr
 typedef struct  s_cub
 {
     t_conf  *conf;
-    t_map   *map;
+//    t_map   *map;
     t_rndr  *rndr;
 }               t_cub;
 
-void    ft_error(t_cub **cub, char **line);
+void    ft_error(char *str);
+void    parse_params(t_cub *cub, int fd);
+void    parse_map();
 
 #endif

@@ -23,12 +23,11 @@
 # define BUFFER_SIZE 1
 
 int     ft_tablen(char **tab);
-void    ft_tabdel(char ***tab);
-void    ft_error(t_cub **cub, char **line);
+void    ft_tabdel(char **tab);
 void    destroy(void **ptr);
 int     ft_skip_alpha(char *str);
 int     ft_skip_digit(char *str);
-void	ft_strdel(char **s);
+void	ft_strdel(char *s);
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *str);
 int		where_in_str(char *str, char c);
@@ -36,7 +35,7 @@ int		where_in_str(char *str, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		strjoin(char **s1, char s2[BUFFER_SIZE + 1]);
 size_t	savehandler(char **s1, char **s2);
-void	ft_strdel(char **s);
+void	ft_strdel(char *s);
 int     get_next_line(int fd, char **line);
 int     is_in_str(char *str, char c);
 int     is_charset_str(char *s1, char *s2);

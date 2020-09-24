@@ -4,7 +4,8 @@ GCC			= clang
 
 CFLAGS		= -Wall -Wextra -Werror
 
-SRCS		= ./srcs/parsing/parsing_main2.c
+SRCS		= ./srcs/parsing/parse_params.c ./srcs/parsing/parse_map.c \
+				./main.c
 
 OBJS		=   $(SRCS:.c=.o)
 

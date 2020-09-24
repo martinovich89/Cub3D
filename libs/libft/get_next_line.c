@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_strdel(char **s)
+static void	ft_strdel(char **s)
 {
 	if (s != NULL && *s != NULL)
 	{
@@ -21,7 +21,7 @@ void	ft_strdel(char **s)
 	}
 }
 
-int		strjoin(char **s1, char s2[BUFFER_SIZE + 1])
+static int	strjoin(char **s1, char s2[BUFFER_SIZE + 1])
 {
 	char	*tmp;
 	size_t	size;
@@ -49,7 +49,7 @@ int		strjoin(char **s1, char s2[BUFFER_SIZE + 1])
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	static char	*save = NULL;
 	char		buf[BUFFER_SIZE + 1];
