@@ -2,7 +2,7 @@
 
 // les fonctions del prennent des pointeurs sur items pour pouvoir set a NULL.
 // J'ai essayé d'imaginer une syntaxe pour que ça rentre dans ces fonctions...
-void    destroy_cub(t_cub *cub)
+/*void    destroy_cub(t_cub *cub)
 {
     if (cub->conf->map)
         ft_tabdel(cub->conf->map);
@@ -20,7 +20,7 @@ void    destroy_cub(t_cub *cub)
         ft_strdel(cub->conf->path_sp);
     if (cub)
         destroy(cub);
-}
+}*/
 
 // On free tout et on fait exit() (qui est sensé tout free a ce qui parait, mais bon)
 void    ft_error(char *str)

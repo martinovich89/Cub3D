@@ -9,10 +9,11 @@ void    ft_tabdel(char **tab)
     i = 0;
     while (tab[i])
     {
-        ft_strdel(tab + i);
+        ft_strdel(tab[i]);
         i++;
     }
     if (tab)
         free(tab);
+    len++;
     tab = NULL;
 }

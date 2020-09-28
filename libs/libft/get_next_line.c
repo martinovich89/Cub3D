@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-static void	ft_strdel(char **s)
+/*static void	ft_strdel(char *s)
 {
 	if (s != NULL && *s != NULL)
 	{
 		free(*s);
 		*s = NULL;
 	}
-}
+}*/
 
 static int	strjoin(char **s1, char s2[BUFFER_SIZE + 1])
 {
@@ -44,7 +44,7 @@ static int	strjoin(char **s1, char s2[BUFFER_SIZE + 1])
 		j++;
 	}
 	tmp[i + j] = 0;
-	ft_strdel(s1);
+	ft_strdel(*s1);
 	*s1 = tmp;
 	return (1);
 }
@@ -64,7 +64,7 @@ int			get_next_line(int fd, char **line)
 	{
 		if ((ret = read(fd, buf, BUFFER_SIZE)) < 0)
 		{
-			ft_strdel(&save);
+			ft_strdel(save);
 			return (-1);
 		}
 		buf[ret] = 0;
@@ -74,6 +74,6 @@ int			get_next_line(int fd, char **line)
 		return ((savehandler(&save, line) == 0) ? -1 : 1);
 	*line = ft_strdup(save);
 	if (ret <= 0)
-		ft_strdel(&save);
+		ft_strdel(save);
 	return (0);
 }

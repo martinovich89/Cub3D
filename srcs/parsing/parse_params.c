@@ -25,7 +25,7 @@ void    parse_res(t_cub *cub, char *line)
 {
     char **tab;
 
-    if (!(tab = ft_split(*line, ' ')))
+    if (!(tab = ft_split(line, ' ')))
         ft_error("ram allocation error");
     if (ft_tablen(tab) != 3 || ft_atoi(tab[1]) < 300 || ft_atoi(tab[2]) < 300)
     {
@@ -34,7 +34,7 @@ void    parse_res(t_cub *cub, char *line)
     }
     set_res_w(cub, ft_atoi(tab[1]));
     set_res_h(cub, ft_atoi(tab[2]));
-    if (tab);
+    if (tab)
         ft_tabdel(tab);
 }
 
@@ -42,14 +42,14 @@ int     is_valid_path(char *str)
 {
     int fd;
 
-    if (fd = open(str, O_RDONLY) <= 0)
+    if ((fd = open(str, O_RDONLY)) <= 0)
         return (0);
     close(fd);
     return (1);
 }
 
 // Setter des paths de textures.
-void    set_tex_path(t_cub *cub, char *line, char *path, int nb)
+void    set_tex_path(t_cub *cub, char *path, int nb)
 {
     if (nb == 1)
         if (!(cub->conf->path_no = ft_strdup(path)))
@@ -80,13 +80,13 @@ void    parse_tex(t_cub *cub, char *line, int nb)
         ft_tabdel(tab);
         ft_error("invalid texture line");
     }
-    set_tex_path(cub, line, tab[1], nb);
+    set_tex_path(cub, tab[1], nb);
     if (tab)
         ft_tabdel(tab);
 }
 
 // Le setter des colors du sol et du plafond.
-void    set_colr(t_cub *cub, char *line, char *str, int nb)
+void    set_colr(t_cub *cub, char *str, int nb)
 {
     char    **tab;
 
@@ -148,7 +148,7 @@ void    parse_colr(t_cub *cub, char *line, int nb)
         ft_tabdel(tab);
         ft_error("invalid color line in .cub file");
     }
-    set_colr(cub, line, tab[1], nb);
+    set_colr(cub, tab[1], nb);
     if (tab)
         ft_tabdel(tab);
 }
@@ -203,7 +203,7 @@ void    init_parsing(t_cub *cub, int fd)
     i = 0;
     while (get_next_line(fd, &line) >= 0 && !(is_charset_str(line, " 1") && is_in_str(line, '1')))
     {
-        if (cmp_and_parse(cub, line));
+        if (cmp_and_parse(cub, line))
             i++;
         if (line)
             ft_strdel(line);
@@ -212,7 +212,6 @@ void    init_parsing(t_cub *cub, int fd)
         ft_error("invalid parameter lines count");
     if (line)
         ft_strdel(line);
-    return (0);
 }
 
 // On déclare la struct, on ouvre le fichier de conf, on envoie le parsing.

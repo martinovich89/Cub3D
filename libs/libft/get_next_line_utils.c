@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static size_t	ft_strlen(const char *str)
+/*static size_t	ft_strlen(const char *str)
 {
 	size_t i;
 
@@ -20,9 +20,9 @@ static size_t	ft_strlen(const char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
+}*/
 
-static int		where_in_str(char *str, char c)
+int				where_in_str(char *str, char c)
 {
 	size_t i;
 	size_t len;
@@ -36,7 +36,7 @@ static int		where_in_str(char *str, char c)
 	return (-1);
 }
 
-static char		*ft_strdup(const char *str)
+/*static char		*ft_strdup(const char *str)
 {
 	char	*tab;
 	size_t	i;
@@ -53,9 +53,9 @@ static char		*ft_strdup(const char *str)
 	}
 	tab[i] = 0;
 	return (tab);
-}
+}*/
 
-static char		*ft_substr(char const *s, unsigned int start, size_t len_mal)
+/*static char		*ft_substr(char const *s, unsigned int start, size_t len_mal)
 {
 	char	*tab;
 	size_t	i;
@@ -75,7 +75,7 @@ static char		*ft_substr(char const *s, unsigned int start, size_t len_mal)
 	}
 	tab[i] = 0;
 	return (tab);
-}
+}*/
 
 size_t			savehandler(char **s1, char **s2)
 {

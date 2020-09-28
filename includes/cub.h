@@ -15,8 +15,9 @@
 
 typedef struct  s_conf
 {
-    int             res_w;
-    int             res_h;
+    char            *file;
+    size_t          res_w;
+    size_t          res_h;
     char            *path_no;
     char            *path_ea;
     char            *path_we;
@@ -31,6 +32,7 @@ typedef struct  s_conf
     unsigned char   floo_b;
     int             floo_is_set;
     char            **map;
+    int             is_bmp;
 }               t_conf;
 
 /*
