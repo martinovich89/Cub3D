@@ -3,11 +3,13 @@
 void	launch_game(t_cub *cub)
 {
 	int fd;
+	char *line;
 
 	if (!(fd = open(cub->conf->file, O_RDONLY)))
 		ft_error("can't read .cub file");
-	parse_params(cub, fd);
-	parse_map(cub);
+	parse_params(cub, &line, fd);
+	parse_map(cub, &line, fd);
+	close(fd);
 }
 
 void	screenshoot()
@@ -57,7 +59,7 @@ t_cub	*env_alloc()
 
 	if (!(ptr = malloc(sizeof(t_cub))))
 		return (NULL);
-	if (!(ptr->conf = malloc(sizeof(ptr->conf))))
+	if (!(ptr->conf = malloc(sizeof(t_conf))))
 		return (NULL);
 	//etc
 	return (ptr);
@@ -84,6 +86,8 @@ void	init_env(t_cub *cub)
 
 int		main(int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
 	t_cub	*cub;
 
 	if ((cub = env_alloc()) == NULL)
@@ -93,7 +97,7 @@ int		main(int argc, char **argv)
 	cub->conf->file = argv[1];
 	init_env(cub);
 	launch_game(cub);
-	if (cub->conf->is_bmp == 1)
-		screenshoot();
+/*	if (cub->conf->is_bmp == 1)
+		screenshoot();*/
 	return (0);
 }

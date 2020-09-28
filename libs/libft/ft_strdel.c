@@ -3,6 +3,8 @@
 void    ft_strdel(char *str)
 {
     if (str)
+    {
         free(str);
-    str= NULL;
+        str= NULL;
+    }
 }

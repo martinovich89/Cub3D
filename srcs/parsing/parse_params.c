@@ -42,7 +42,7 @@ int     is_valid_path(char *str)
 {
     int fd;
 
-    if ((fd = open(str, O_RDONLY)) <= 0)
+    if ((fd = open(str, O_RDONLY)) < 0)
         return (0);
     close(fd);
     return (1);
@@ -186,8 +186,8 @@ int     is_valid_conf(t_cub *cub)
 {
     if (cub->conf->res_w == -1 || cub->conf->res_h == -1)
         return (0);
-    if (!cub->conf->path_no[0] || !cub->conf->path_ea[0] || !cub->conf->path_we[0]
-    || !cub->conf->path_so[0] || !cub->conf->path_sp[0])
+    if (!cub->conf->path_no || !cub->conf->path_ea || !cub->conf->path_we
+    || !cub->conf->path_so || !cub->conf->path_sp)
         return (0);
     if (!cub->conf->ceil_is_set || !cub->conf->floo_is_set)
         return (0);
@@ -195,29 +195,32 @@ int     is_valid_conf(t_cub *cub)
 }
 
 // La boucle qui fait gnl pour checker les lignes 1 par 1.
-void    init_parsing(t_cub *cub, int fd)
+void    init_parsing(t_cub *cub, char **line, int fd)
 {
-    char    *line;
+//    char    *line;
     int     i;
 
     i = 0;
-    while (get_next_line(fd, &line) >= 0 && !(is_charset_str(line, " 1") && is_in_str(line, '1')))
+    while (get_next_line(fd, line) > 0 && !(is_charset_str(*line, " 1") && is_in_str(*line, '1')))
     {
-        if (cmp_and_parse(cub, line))
+        if (cmp_and_parse(cub, *line))
             i++;
-        if (line)
-            ft_strdel(line);
+        printf("%s\n", *line);
+        if (*line)
+            ft_strdel(*line);
+
     }
-    if (i != 8 || is_valid_conf(cub))
-        ft_error("invalid parameter lines count");
-    if (line)
-        ft_strdel(line);
+    if (i != 8 || !is_valid_conf(cub))
+        ft_error("invalid parameter *lines count");
+    printf("%s\n", *line);
+//    if (*line)
+//        ft_strdel(*line);
 }
 
 // On déclare la struct, on ouvre le fichier de conf, on envoie le parsing.
-void    parse_params(t_cub *cub, int fd)
+void    parse_params(t_cub *cub, char **line, int fd)
 {
 /*    cub = malloc(sizeof(t_cub));
     fd = open(CONF_PATH, O_RDONLY);*/
-    init_parsing(cub, fd);
+    init_parsing(cub, line, fd);
 }

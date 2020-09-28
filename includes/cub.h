@@ -16,8 +16,8 @@
 typedef struct  s_conf
 {
     char            *file;
-    size_t          res_w;
-    size_t          res_h;
+    int             res_w;
+    int             res_h;
     char            *path_no;
     char            *path_ea;
     char            *path_we;
@@ -32,6 +32,8 @@ typedef struct  s_conf
     unsigned char   floo_b;
     int             floo_is_set;
     char            **map;
+    int             map_w;
+    int             map_h;
     int             is_bmp;
 }               t_conf;
 
@@ -57,7 +59,7 @@ typedef struct  s_cub
 }               t_cub;
 
 void    ft_error(char *str);
-void    parse_params(t_cub *cub, int fd);
+void    parse_params(t_cub *cub, char **line, int fd);
 void    parse_map();
 
 #endif

@@ -10,7 +10,7 @@ SRCS		=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_toupper.c ft_isascii.c \
 				ft_calloc.c ft_memchr.c ft_putchar_fd.c get_next_line.c \
 				get_next_line_utils.c is_in_str.c ft_skip_digit.c is_charset_str.c \
 				ft_skip_alpha.c destroy.c ft_tabdel.c ft_tablen.c is_charset.c \
-				ft_putstr.c ft_putchar.c ft_strdel
+				ft_putstr.c ft_putchar.c ft_strdel.c ft_strcmp.c
 
 INCLUDES	=	./
 

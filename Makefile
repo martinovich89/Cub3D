@@ -1,11 +1,14 @@
 NAME		= parsing
 
-GCC			= clang
+GCC			= clang -fsanitize=address -g3
 
 CFLAGS		= -Wall -Wextra -Werror
 
-SRCS		= ./srcs/parsing/parse_params.c ./srcs/parsing/parse_map.c \
-				./main.c ./srcs/errors/ft_error.c
+SRCS		= ./main.c ./srcs/parsing/parse_params.c \
+				./srcs/parsing/parse_map.c \
+				./srcs/errors/ft_error.c
+
+RM			= rm -rf
 
 OBJS		=   $(SRCS:.c=.o)
 
@@ -25,7 +28,7 @@ ALL_LIB		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -L$(LIBFT_DIR) -lft
 
 all: $(NAME)
 
-$(OBJS): %.o : %.c                           #on a rajouté les dépendances au petit bonheur la chance ;)
+$(OBJS): %o : %c                         #on a rajouté les dépendances au petit bonheur la chance ;)
 	$(GCC) $(CFLAGS) -c $< -o $@ $(ALL_INC)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
@@ -40,8 +43,8 @@ $(MLX) :
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MLX_DIR)
-	$(RM) -R $(MLX_DIR)*.o
-	$(RM) -R ./srcs/*.o
+#	$(RM) -R $(MLX_DIR)*.o
+	$(RM) ./srcs/*.o ./srcs/parsing/*.o ./*.o
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
