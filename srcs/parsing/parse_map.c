@@ -1,109 +1,107 @@
 #include "cub.h"
 
-// Parcours du fichier pour déterminer xmax et ymax de la map.
-void    set_w_h(t_cub *cub, char **line, int fd1)
+void    set_w_h(t_cub *cub)
 {
-    if (is_charset_str(*line, "012 NEWS") && is_in_str(*line, '1'))
+    int     fd;
+    char    *line;
+
+    fd = open(cub->conf->file, O_RDONLY);
+    while (get_next_line(fd, &line) > 0 && !is_charset_str(line, " 1"))
+        free(line);
+    if (!is_charset_str(line, " 1") || !is_in_str(line, '1'))
+        ft_error("no map or spaces in line");
+    if (ft_strlen(line) > (size_t)cub->conf->map_w)
+            cub->conf->map_w = ft_strlen(line);
+        cub->conf->map_h++;
+    if (line)
+        free(line);
+    while (get_next_line(fd, &line) > 0)
     {
-        if ((int)ft_strlen(*line) > cub->conf->map_w)
-            cub->conf->map_w = ft_strlen(*line);
+        if (!is_charset_str(line, "NEWS 012") || !is_in_str(line, '1'))
+            ft_error("invalid map line (map must be last element)");
+        if (ft_strlen(line) > (size_t)cub->conf->map_w)
+            cub->conf->map_w = ft_strlen(line);
         cub->conf->map_h++;
     }
-    while (get_next_line(fd1, line) > 0)
-    {
-        printf("%s\n", *line);
-        if (!is_charset_str(*line, "012 NEWS") || !is_in_str(*line, '1'))  // 2e condition : a voir si on tolere lignes vides
-            ft_error("check spaces, empty lines or map pos.");
-        if ((int)ft_strlen(*line) > cub->conf->map_w)
-            cub->conf->map_w = ft_strlen(*line);
-        cub->conf->map_h++;
-        if (*line)
-            ft_strdel(*line);
-    }
-    printf("%s\n", *line);
-    if (!is_charset_str(*line, "012 NEWS") || !is_in_str(*line, '1'))  // 2e condition : a voir si on tolere lignes vides
-        ft_error("check spaces, empty lines or map pos.");
-    if (*line)
-        ft_strdel(*line);
+    if (ft_strlen(line) > (size_t)cub->conf->map_w)
+        cub->conf->map_w = ft_strlen(line);
+    cub->conf->map_h++;
+    if (line)
+        free(line);
+    close(fd);
 }
 
-//  Build un tableau de chars rectangulaire. Intégrer à libft ?
-char    **ft_build_tab(int w, int h)
+char    **ft_build_tab(int xmax, int ymax)
 {
-    char **tab;
-    int i;
+    char    **tab;
+    int     i;
 
-    if (!(tab = malloc(sizeof(char) * h + 1)))
+    if (!(tab = malloc(sizeof(char) * ymax + 1)))
         ft_error("ram allocation error");
     i = 0;
-    while (i < h)
+    while (i < ymax)
     {
-        if (!(tab[i] = calloc((w + 1), 1)))
+        if (!(tab[i] = calloc((xmax + 1), 1)))
             ft_error("ram allocation error");
-        ft_memset(tab[i], ' ', w);
+        ft_memset(tab[i], ' ', xmax);
         i++;
     }
     return (tab);
 }
 
-void	fill_tab(t_cub *cub, int fd)
+void    fill_tab(t_cub *cub)
 {
-	char    *line;
-	int  i;
+    char    *line;
+    int     fd;
+    int     i;
 
-	// copier les lignes de description de map dans le tableau de str conf->map
+    fd = open(cub->conf->file, O_RDONLY);
+    i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		i = 0;
-		while (i < cub->conf->res_w && is_charset_str(line, "NEWS 012"))
+		if (is_charset_str(line, "NEWS 012"))
 		{
 			strcpy(cub->conf->map[i], line);
-			i++;
+            i++;
 		}
-        if (line)
-		    ft_strdel(line);
+		free(line);
 	}
-/*    if (line)
-        ft_strdel(line);*/
-}
-
-int		check_map(char **tab)
-{
-	size_t i;
-	size_t j;
-
-	i = 0;
-	while (tab[i])
-	{
-		j = 0;
-		while (tab[j])
-		{
-			// les if qui suivent permet de vérifier que les bords de map sont des 1.
-			// 1. verifier qu'il n'y a pas '0', '2', 'N'... sur les bords.
-			if ((!i || !j || !tab[i + 1] || !tab[i][j + 1])
-			&& is_charset(tab[i][j], "02NEWS"))
-				return (1);
-			// 2. verifier qu'il n'y a pas '0', '2', 'N'... en dehors de la "cloture" de 1.
-			if ((i && j && tab[i + 1] && tab[i][j + 1])
-			&& is_charset(tab[i][j], "02NEWS")
-			&& (tab[i + 1][j] == ' ' || tab[i][j + 1] == ' '
-			|| tab[i - 1][j] == ' ' || tab[i][j - 1] == ' '))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-void    parse_map(t_cub *cub, char **line, int fd)
-{
-    set_w_h(cub, line, fd);
+    free(line);
     close(fd);
-/*    cub->conf->map = ft_build_tab(cub->conf->res_w, cub->conf->res_h);
-    if ((fd = open(cub->conf->file, O_RDONLY)) <= 0)
-        ft_error("invalid .cub file path");
-    fill_tab(cub, fd);
-    close (fd);
-    check_map(cub->conf->map);*/
 }
+
+void    parse_map(t_cub *cub)
+{
+    set_w_h(cub);
+    cub->conf->map = ft_build_tab(cub->conf->map_w, cub->conf->map_h);
+    fill_tab(cub);
+}
+
+/*void    parse_map()
+{
+    char    *line;
+
+    open();
+    while(get_next_line())
+    {
+
+    }
+    free();
+    close();
+}
+
+void    parse_params()
+{
+
+}
+
+void    launch_game()
+{
+    parse_params();
+    parse_map();
+}
+
+int main()
+{
+    launch_game()
+}*/

@@ -1,20 +1,14 @@
 #include "cub.h"
 
-void	launch_game(t_cub *cub)
+/*void	launch_game(t_cub *cub)
 {
-	int fd;
-	char *line;
-
-	if (!(fd = open(cub->conf->file, O_RDONLY)))
-		ft_error("can't read .cub file");
-	parse_params(cub, &line, fd);
-	parse_map(cub, &line, fd);
-	close(fd);
+	parse_params(cub);
+	parse_map(cub);
 }
 
 void	screenshoot()
 {
-	/*a remplir*/
+
 }
 
 void	check_arg(t_cub *cub, int argc, char **argv)
@@ -61,7 +55,6 @@ t_cub	*env_alloc()
 		return (NULL);
 	if (!(ptr->conf = malloc(sizeof(t_conf))))
 		return (NULL);
-	//etc
 	return (ptr);
 }
 
@@ -96,8 +89,48 @@ int		main(int argc, char **argv)
 	check_fd(argv);
 	cub->conf->file = argv[1];
 	init_env(cub);
-	launch_game(cub);
-/*	if (cub->conf->is_bmp == 1)
-		screenshoot();*/
+	launch_game(cub);/
 	return (0);
+}*/
+
+void    test_print_twice_fd(int fd, int ret, char *str, char *path)
+{
+
+        fd = open(path, O_RDONLY);
+        while ((ret = get_next_line(fd, &str) >= 0))
+        {
+            printf("%d-%s\n", ret, str);
+            free(str);
+        }
+        printf("%d-%s\n", ret, str);
+}
+
+int        main(int argc, char **argv)
+{
+    int        fd;
+    int        ret;
+    char    *str;
+
+    if (argc == 2)
+    {
+        fd = open(argv[1], O_RDONLY);
+        while ((ret = get_next_line(fd, &str) > 0))
+        {
+            printf("%d-%s\n", ret, str);
+            free(str);
+        }
+        printf("%d-%s\n", ret, str);
+		free(str);
+//        test_print_twice_fd(fd, ret, str, argv[1]);
+		close(fd);
+		fd = open(argv[1], O_RDONLY);
+        while ((ret = get_next_line(fd, &str) >= 0))
+        {
+            printf("%d-%s\n", ret, str);
+            free(str);
+        }
+        printf("%d-%s\n", ret, str);
+		close(fd);
+    }
+    return (0);
 }

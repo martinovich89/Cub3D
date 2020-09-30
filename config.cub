@@ -1,6 +1,6 @@
 R 1920 1080
 
-NO ./textures/tex_sp.txt
+NO ./textures/tex_no.txt
 SO ./textures/tex_so.txt
 WE ./textures/tex_we.txt
 EA ./textures/tex_ea.txt

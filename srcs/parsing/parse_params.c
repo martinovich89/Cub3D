@@ -38,6 +38,7 @@ void    parse_res(t_cub *cub, char *line)
         ft_tabdel(tab);
 }
 
+// /!\ A ajouter : is_valid_tex()
 int     is_valid_path(char *str)
 {
     int fd;
@@ -195,32 +196,35 @@ int     is_valid_conf(t_cub *cub)
 }
 
 // La boucle qui fait gnl pour checker les lignes 1 par 1.
-void    init_parsing(t_cub *cub, char **line, int fd)
+void    init_parsing(t_cub *cub)
 {
-//    char    *line;
+    char    *line;
     int     i;
+    int     fd;
 
+    fd = open(cub->conf->file, O_RDONLY);
     i = 0;
-    while (get_next_line(fd, line) > 0 && !(is_charset_str(*line, " 1") && is_in_str(*line, '1')))
+    while (get_next_line(fd, &line) > 0 && !(is_charset_str(line, " 1") && is_in_str(line, '1')))
     {
-        if (cmp_and_parse(cub, *line))
+        if (cmp_and_parse(cub, line))
             i++;
-        printf("%s\n", *line);
-        if (*line)
-            ft_strdel(*line);
-
+        printf("%s\n", line);
+        ft_strdel(line);
     }
-    if (i != 8 || !is_valid_conf(cub))
-        ft_error("invalid parameter *lines count");
-    printf("%s\n", *line);
-//    if (*line)
-//        ft_strdel(*line);
+    printf("%s\n", line);
+    if (line)
+        ft_strdel(line);
+    if (i != 8)
+        ft_error("invalid parameter lines count");
+    if (!is_valid_conf(cub))
+        ft_error("one or more parameters are invalid");
+    close(fd);
 }
 
 // On déclare la struct, on ouvre le fichier de conf, on envoie le parsing.
-void    parse_params(t_cub *cub, char **line, int fd)
+void    parse_params(t_cub *cub)
 {
 /*    cub = malloc(sizeof(t_cub));
     fd = open(CONF_PATH, O_RDONLY);*/
-    init_parsing(cub, line, fd);
+    init_parsing(cub);
 }

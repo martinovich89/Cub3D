@@ -59,7 +59,7 @@ typedef struct  s_cub
 }               t_cub;
 
 void    ft_error(char *str);
-void    parse_params(t_cub *cub, char **line, int fd);
+void    parse_params(t_cub *cub);
 void    parse_map();
 
 #endif

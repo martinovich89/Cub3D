@@ -1,21 +1,21 @@
 #include "libft.h"
 
-int is_charset_str(char *s1, char *s2)
+int is_charset_str(char *str, char *charset)
 {
     int i;
     int j;
 
     i = 0;
-    if (!s1[i])
+    if (!str[i] || !str)
         return (0);
-    while (s1[i])
+    while (str[i])
     {
         j = 0;
-        while (s2[j] && s1[i] != s2[j])
+        while (charset[j] && str[i] != charset[j])
         {
             j++;
         }
-        if (!s2[j])
+        if (!charset[j])
             return (0);
         i++;
     }
