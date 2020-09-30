@@ -14,20 +14,20 @@ void	screenshoot()
 void	check_arg(t_cub *cub, int argc, char **argv)
 {
 	if (argc < 1)
-		ft_error("No argument");
+		ft_error("No argument", cub);
 	else if (argc > 0 && argc < 2)
-		ft_error("Empty argument");
+		ft_error("Empty argument", cub);
 	else if (argc > 3)
-		ft_error("Too many arguments");
+		ft_error("Too many arguments", cub);
 	else if (argc == 3 && ft_strcmp(argv[2], "--save") != 0)
-		ft_error("Incorrect argument for save image");
+		ft_error("Incorrect argument for save image", cub);
 	else if (argc == 3)
 		cub->conf->is_bmp = 1;
 	else
 		cub->conf->is_bmp = 0;
 }
 
-void	check_fd(char **argv)
+void	check_fd(char **argv, t_cub *env)
 {
 	char	*line;
 	int		fd;
@@ -36,14 +36,14 @@ void	check_fd(char **argv)
 	fd = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		ft_error("The file does not exist");
+		ft_error("The file does not exist", env);
 	if ((line = (ft_strrchr(argv[1], '.'))) != NULL)
 	{
 		if (ft_strncmp(line, ".cub", 4) != 0)
-			ft_error("Wrong file extension, please use .cub");
+			ft_error("Wrong file extension, please use .cub", env);
 	}
 	else
-		ft_error("Wrong file extension, please use .cub");
+		ft_error("Wrong file extension, please use .cub", env);
 	close(fd);
 }
 
@@ -66,7 +66,7 @@ void	init_env(t_cub *cub)
 	cub->conf->path_ea = NULL;
 	cub->conf->path_we = NULL;
 	cub->conf->path_so = NULL;
-	cub->conf->path_no = NULL;
+	cub->conf->path_sp = NULL;
 	cub->conf->ceil_r = 0;
 	cub->conf->ceil_g = 0;
 	cub->conf->ceil_b = 0;
@@ -84,11 +84,12 @@ int		main(int argc, char **argv)
 	t_cub	*cub;
 
 	if ((cub = env_alloc()) == NULL)
-		ft_error("ram allocation error");
+		ft_error("ram allocation error", cub);
 	check_arg(cub, argc, argv);
-	check_fd(argv);
-	cub->conf->file = argv[1];
+	check_fd(argv, cub);
+	cub->conf->file = ft_strdup(argv[1]);
 	init_env(cub);
 	launch_game(cub);
+	ft_clear_env(cub);
 	return (0);
 }

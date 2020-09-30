@@ -26,11 +26,11 @@ void    parse_res(t_cub *cub, char *line)
     char **tab;
 
     if (!(tab = ft_split(line, ' ')))
-        ft_error("ram allocation error");
+        ft_error("ram allocation error", cub);
     if (ft_tablen(tab) != 3 || ft_atoi(tab[1]) < 300 || ft_atoi(tab[2]) < 300)
     {
         ft_tabdel(tab);
-        ft_error("invalid res line");
+        ft_error("invalid res line", cub);
     }
     set_res_w(cub, ft_atoi(tab[1]));
     set_res_h(cub, ft_atoi(tab[2]));
@@ -54,19 +54,19 @@ void    set_tex_path(t_cub *cub, char *path, int nb)
 {
     if (nb == 1)
         if (!(cub->conf->path_no = ft_strdup(path)))
-            ft_error("ram allocation error");
+            ft_error("ram allocation error", cub);
     if (nb == 2)
         if (!(cub->conf->path_ea = ft_strdup(path)))
-            ft_error("ram allocation error");
+            ft_error("ram allocation error", cub);
     if (nb == 3)
         if (!(cub->conf->path_we = ft_strdup(path)))
-            ft_error("ram allocation error");
+            ft_error("ram allocation error", cub);
     if (nb == 4)
         if (!(cub->conf->path_so = ft_strdup(path)))
-            ft_error("ram allocation error");
+            ft_error("ram allocation error", cub);
     if (nb == 5)
         if(!(cub->conf->path_sp = ft_strdup(path)))
-            ft_error("ram allocation error");
+            ft_error("ram allocation error", cub);
 }
 
 // Check du format des paths de textures, et envoi au setter.
@@ -75,11 +75,11 @@ void    parse_tex(t_cub *cub, char *line, int nb)
     char **tab;
 
     if (!(tab = ft_split(line, ' ')))
-        ft_error("ram allocation error");
+        ft_error("ram allocation error", cub);
     if (ft_tablen(tab) != 2 || !is_valid_path(tab[1]))
     {
         ft_tabdel(tab);
-        ft_error("invalid texture line");
+        ft_error("invalid texture line", cub);
     }
     set_tex_path(cub, tab[1], nb);
     if (tab)
@@ -92,7 +92,7 @@ void    set_colr(t_cub *cub, char *str, int nb)
     char    **tab;
 
     if (!(tab = ft_split(str, ',')))
-        ft_error("ram allocation error");
+        ft_error("ram allocation error", cub);
     if (nb == 1)
     {
         cub->conf->ceil_r = (unsigned char)ft_atoi(tab[0]);
@@ -143,11 +143,11 @@ void    parse_colr(t_cub *cub, char *line, int nb)
     char **tab;
 
     if (!(tab = ft_split(line, ' ')))
-        ft_error("erreur d'allocation mémoire");
+        ft_error("erreur d'allocation mémoire", cub);
     if (ft_tablen (tab) != 2 || !is_valid_colr(tab[1]))
     {
         ft_tabdel(tab);
-        ft_error("invalid color line in .cub file");
+        ft_error("invalid color line in .cub file", cub);
     }
     set_colr(cub, tab[1], nb);
     if (tab)
@@ -176,7 +176,7 @@ int     cmp_and_parse(t_cub *cub, char *line)
         else if (!ft_strncmp(line, "F ", 2))
             parse_colr(cub, line, 2);
         else
-            ft_error("invalid line in .cub file");
+            ft_error("invalid line in .cub file", cub);
         return (1);
     }
     return (0);
@@ -208,16 +208,14 @@ void    init_parsing(t_cub *cub)
     {
         if (cmp_and_parse(cub, line))
             i++;
-        printf("%s\n", line);
         ft_strdel(line);
     }
-    printf("%s\n", line);
     if (line)
         ft_strdel(line);
     if (i != 8)
-        ft_error("invalid parameter lines count");
+        ft_error("invalid parameter lines count", cub);
     if (!is_valid_conf(cub))
-        ft_error("one or more parameters are invalid");
+        ft_error("one or more parameters are invalid", cub);
     close(fd);
 }
 

@@ -8,6 +8,7 @@ SRCS		= ./main.c ./srcs/parsing/parse_params.c \
 				./srcs/errors/ft_error.c \
 				./srcs/GNL/get_next_line.c \
 				./srcs/GNL/get_next_line_utils.c \
+				./srcs/utils/clear.c \
 
 RM			= rm -rf
 
@@ -45,7 +46,7 @@ clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MLX_DIR)
 #	$(RM) -R $(MLX_DIR)*.o
-	$(RM) ./srcs/*.o ./srcs/parsing/*.o ./*.o
+	$(RM) ./srcs/*.o ./srcs/parsing/*.o ./*.o ./srcs/errors/*.o ./srcs/GNL/*.o ./srcs/utils/*.o
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)

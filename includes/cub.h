@@ -59,7 +59,8 @@ typedef struct  s_cub
     t_rndr  *rndr;
 }               t_cub;
 
-void    ft_error(char *str);
+void	ft_clear_env(t_cub *env);
+void    ft_error(char *str, t_cub *env);
 void    parse_params(t_cub *cub);
 void    parse_map();
 
