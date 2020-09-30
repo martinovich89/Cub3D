@@ -5,7 +5,9 @@ CFLAGS		= -Wall -Wextra -Werror
 
 SRCS		= ./main.c ./srcs/parsing/parse_params.c \
 				./srcs/parsing/parse_map.c \
-				./srcs/errors/ft_error.c
+				./srcs/errors/ft_error.c \
+				./srcs/GNL/get_next_line.c \
+				./srcs/GNL/get_next_line_utils.c \
 
 RM			= rm -rf
 

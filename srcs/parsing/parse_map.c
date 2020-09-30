@@ -76,32 +76,3 @@ void    parse_map(t_cub *cub)
     cub->conf->map = ft_build_tab(cub->conf->map_w, cub->conf->map_h);
     fill_tab(cub);
 }
-
-/*void    parse_map()
-{
-    char    *line;
-
-    open();
-    while(get_next_line())
-    {
-
-    }
-    free();
-    close();
-}
-
-void    parse_params()
-{
-
-}
-
-void    launch_game()
-{
-    parse_params();
-    parse_map();
-}
-
-int main()
-{
-    launch_game()
-}*/

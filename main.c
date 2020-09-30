@@ -1,6 +1,6 @@
 #include "cub.h"
 
-/*void	launch_game(t_cub *cub)
+void	launch_game(t_cub *cub)
 {
 	parse_params(cub);
 	parse_map(cub);
@@ -61,20 +61,20 @@ t_cub	*env_alloc()
 void	init_env(t_cub *cub)
 {
 	cub->conf->res_w = -1;
-    cub->conf->res_h = -1;
-    cub->conf->path_no = NULL;
-    cub->conf->path_ea = NULL;
-    cub->conf->path_we = NULL;
-    cub->conf->path_so = NULL;
-    cub->conf->path_no = NULL;
-    cub->conf->ceil_r = 0;
-    cub->conf->ceil_g = 0;
-    cub->conf->ceil_b = 0;
-    cub->conf->ceil_is_set = 0;
-    cub->conf->floo_r = 0;
-    cub->conf->floo_g = 0;
-    cub->conf->floo_b = 0;
-    cub->conf->floo_is_set = 0;
+	cub->conf->res_h = -1;
+	cub->conf->path_no = NULL;
+	cub->conf->path_ea = NULL;
+	cub->conf->path_we = NULL;
+	cub->conf->path_so = NULL;
+	cub->conf->path_no = NULL;
+	cub->conf->ceil_r = 0;
+	cub->conf->ceil_g = 0;
+	cub->conf->ceil_b = 0;
+	cub->conf->ceil_is_set = 0;
+	cub->conf->floo_r = 0;
+	cub->conf->floo_g = 0;
+	cub->conf->floo_b = 0;
+	cub->conf->floo_is_set = 0;
 }
 
 int		main(int argc, char **argv)
@@ -89,48 +89,6 @@ int		main(int argc, char **argv)
 	check_fd(argv);
 	cub->conf->file = argv[1];
 	init_env(cub);
-	launch_game(cub);/
+	launch_game(cub);
 	return (0);
-}*/
-
-void    test_print_twice_fd(int fd, int ret, char *str, char *path)
-{
-
-        fd = open(path, O_RDONLY);
-        while ((ret = get_next_line(fd, &str) >= 0))
-        {
-            printf("%d-%s\n", ret, str);
-            free(str);
-        }
-        printf("%d-%s\n", ret, str);
-}
-
-int        main(int argc, char **argv)
-{
-    int        fd;
-    int        ret;
-    char    *str;
-
-    if (argc == 2)
-    {
-        fd = open(argv[1], O_RDONLY);
-        while ((ret = get_next_line(fd, &str) > 0))
-        {
-            printf("%d-%s\n", ret, str);
-            free(str);
-        }
-        printf("%d-%s\n", ret, str);
-		free(str);
-//        test_print_twice_fd(fd, ret, str, argv[1]);
-		close(fd);
-		fd = open(argv[1], O_RDONLY);
-        while ((ret = get_next_line(fd, &str) >= 0))
-        {
-            printf("%d-%s\n", ret, str);
-            free(str);
-        }
-        printf("%d-%s\n", ret, str);
-		close(fd);
-    }
-    return (0);
 }
