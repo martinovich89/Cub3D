@@ -1,6 +1,6 @@
 NAME		= parsing
 
-GCC			= clang -g3 -fsanitize=address
+GCC			= clang -fsanitize=address -g3
 CFLAGS		= -Wall -Wextra -Werror
 
 SRCS		= ./main.c ./srcs/parsing/parse_params.c \
