@@ -6,7 +6,7 @@
 /*   By: tcarasso <tcarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:53:24 by tcarasso          #+#    #+#             */
-/*   Updated: 2020/10/01 15:55:17 by tcarasso         ###   ########.fr       */
+/*   Updated: 2020/10/01 16:45:54 by tcarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	ft_clear_env(t_cub *env)
 		free(env->conf->path_sp);
 	if (env->conf->map)
 		ft_free_tab(env->conf->map);
+	if (env->conf)
+		free(env->conf);
 	free(env);
 }

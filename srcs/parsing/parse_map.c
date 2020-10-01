@@ -70,7 +70,7 @@ void    fill_tab(t_cub *cub)
 		}
 		free(line);
 	}
-	cub->conf->map[i] = 0;
+	cub->conf->map[++i] = NULL;
     free(line);
     close(fd);
 }
