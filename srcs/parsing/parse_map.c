@@ -22,7 +22,10 @@ void    set_w_h(t_cub *cub)
         if (ft_strlen(line) > (size_t)cub->conf->map_w)
             cub->conf->map_w = ft_strlen(line);
         cub->conf->map_h++;
+        free(line);
     }
+    if (!is_charset_str(line, "NEWS 012") || !is_in_str(line, '1'))
+            ft_error("invalid map line (map must be last element)", cub);
     if (ft_strlen(line) > (size_t)cub->conf->map_w)
         cub->conf->map_w = ft_strlen(line);
     cub->conf->map_h++;
@@ -36,12 +39,13 @@ char    **ft_build_tab(int xmax, int ymax, t_cub *cub)
     char    **tab;
     int     i;
 
-    if (!(tab = malloc(sizeof(char*) * ymax + 1)))
+    if (!(tab = (char**)malloc(sizeof(*tab) * (ymax + 1))))
         ft_error("ram allocation error", cub);
     i = 0;
+    printf(" ymax = %d & xmax = %d\n\n", ymax, xmax);
     while (i < ymax)
     {
-        if (!(tab[i] = calloc((xmax + 1), 1)))
+        if (!(tab[i] = ft_calloc((xmax + 1), 1)))
             ft_error("ram allocation error", cub);
         ft_memset(tab[i], ' ', xmax);
         i++;

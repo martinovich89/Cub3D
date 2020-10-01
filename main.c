@@ -75,6 +75,9 @@ void	init_env(t_cub *cub)
 	cub->conf->floo_g = 0;
 	cub->conf->floo_b = 0;
 	cub->conf->floo_is_set = 0;
+	cub->conf->map = NULL;
+	cub->conf->map_h = 0;
+	cub->conf->map_w = 0;
 }
 
 int		main(int argc, char **argv)
