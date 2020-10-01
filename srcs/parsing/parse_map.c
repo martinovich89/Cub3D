@@ -42,7 +42,6 @@ char    **ft_build_tab(int xmax, int ymax, t_cub *cub)
     if (!(tab = (char**)malloc(sizeof(*tab) * (ymax + 1))))
         ft_error("ram allocation error", cub);
     i = 0;
-    printf(" ymax = %d & xmax = %d\n\n", ymax, xmax);
     while (i < ymax)
     {
         if (!(tab[i] = ft_calloc((xmax + 1), 1)))
@@ -70,7 +69,7 @@ void    fill_tab(t_cub *cub)
 		}
 		free(line);
 	}
-	cub->conf->map[i] = 0;
+	cub->conf->map[++i] = NULL;
     free(line);
     close(fd);
 }

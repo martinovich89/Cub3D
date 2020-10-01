@@ -18,7 +18,10 @@ void	ft_free_tab(char **tab)
 
 	i = 0;
 	while (tab[i])
-		free(tab[i++]);
+	{
+		free(tab[i]);
+		i++;
+	}
 	free(tab);
 }
 
@@ -38,5 +41,7 @@ void	ft_clear_env(t_cub *env)
 		free(env->conf->path_sp);
 	if (env->conf->map)
 		ft_free_tab(env->conf->map);
+	if (env->conf)
+		free(env->conf);
 	free(env);
 }
