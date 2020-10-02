@@ -52,16 +52,16 @@ typedef struct  s_rndr
     unsigned int    **img;
 }               t_rndr;
 
-typedef struct  s_cub
+typedef struct  s_env
 {
     t_conf  *conf;
 //    t_map   *map;
     t_rndr  *rndr;
-}               t_cub;
+}               t_env;
 
-void	ft_clear_env(t_cub *env);
-void    ft_error(char *str, t_cub *env);
-void    parse_params(t_cub *cub);
+void	ft_clear_env(t_env *env);
+void    ft_error(char *str, t_env *env);
+void    parse_params(t_env *env);
 void    parse_map();
 
 #endif

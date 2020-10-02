@@ -1,36 +1,35 @@
 #include "cub.h"
 
-void	launch_game(t_cub *cub)
+void	launch_game(t_env *env)
 {
-	parse_params(cub);
-	parse_map(cub);
+	parse_params(env);
+	parse_map(env);
 }
 
 void	screenshoot()
 {
-
 }
 
-void	check_arg(t_cub *cub, int argc, char **argv)
+void	check_arg(t_env *env, int argc, char **argv)
 {
 	if (argc < 1)
-		ft_error("No argument", cub);
+		ft_error("No argument", env);
 	else if (argc > 0 && argc < 2)
-		ft_error("Empty argument", cub);
+		ft_error("Empty argument", env);
 	else if (argc > 3)
-		ft_error("Too many arguments", cub);
+		ft_error("Too many arguments", env);
 	else if (argc == 3 && ft_strcmp(argv[2], "--save") != 0)
-		ft_error("Incorrect argument for save image", cub);
+		ft_error("Incorrect argument for save image", env);
 	else if (argc == 3)
-		cub->conf->is_bmp = 1;
+		env->conf->is_bmp = 1;
 	else
-		cub->conf->is_bmp = 0;
+		env->conf->is_bmp = 0;
 }
 
-void	check_fd(char **argv, t_cub *env)
+void	check_fd(char **argv, t_env *env)
 {
-	char	*line;
-	int		fd;
+	char *line;
+	int fd;
 
 	line = NULL;
 	fd = 0;
@@ -47,52 +46,52 @@ void	check_fd(char **argv, t_cub *env)
 	close(fd);
 }
 
-t_cub	*env_alloc()
+t_env	*env_alloc()
 {
-	t_cub *ptr;
+	t_env *ptr;
 
-	if (!(ptr = malloc(sizeof(t_cub))))
+	if (!(ptr = malloc(sizeof(t_env))))
 		return (NULL);
 	if (!(ptr->conf = malloc(sizeof(t_conf))))
 		return (NULL);
 	return (ptr);
 }
 
-void	init_env(t_cub *cub)
+void	init_env(t_env *env)
 {
-	cub->conf->res_w = -1;
-	cub->conf->res_h = -1;
-	cub->conf->path_no = NULL;
-	cub->conf->path_ea = NULL;
-	cub->conf->path_we = NULL;
-	cub->conf->path_so = NULL;
-	cub->conf->path_sp = NULL;
-	cub->conf->ceil_r = 0;
-	cub->conf->ceil_g = 0;
-	cub->conf->ceil_b = 0;
-	cub->conf->ceil_is_set = 0;
-	cub->conf->floo_r = 0;
-	cub->conf->floo_g = 0;
-	cub->conf->floo_b = 0;
-	cub->conf->floo_is_set = 0;
-	cub->conf->map = NULL;
-	cub->conf->map_h = 0;
-	cub->conf->map_w = 0;
+	env->conf->res_w = -1;
+	env->conf->res_h = -1;
+	env->conf->path_no = NULL;
+	env->conf->path_ea = NULL;
+	env->conf->path_we = NULL;
+	env->conf->path_so = NULL;
+	env->conf->path_sp = NULL;
+	env->conf->ceil_r = 0;
+	env->conf->ceil_g = 0;
+	env->conf->ceil_b = 0;
+	env->conf->ceil_is_set = 0;
+	env->conf->floo_r = 0;
+	env->conf->floo_g = 0;
+	env->conf->floo_b = 0;
+	env->conf->floo_is_set = 0;
+	env->conf->map = NULL;
+	env->conf->map_h = 0;
+	env->conf->map_w = 0;
 }
 
 int		main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	t_cub	*cub;
+	t_env *env;
 
-	if ((cub = env_alloc()) == NULL)
-		ft_error("ram allocation error", cub);
-	check_arg(cub, argc, argv);
-	check_fd(argv, cub);
-	cub->conf->file = ft_strdup(argv[1]);
-	init_env(cub);
-	launch_game(cub);
-	ft_clear_env(cub);
+	if ((env = env_alloc()) == NULL)
+		ft_error("ram allocation error", env);
+	check_arg(env, argc, argv);
+	check_fd(argv, env);
+	env->conf->file = ft_strdup(argv[1]);
+	init_env(env);
+	launch_game(env);
+	ft_clear_env(env);
 	return (0);
 }

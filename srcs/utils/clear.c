@@ -25,7 +25,7 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-void	ft_clear_env(t_cub *env)
+void	ft_clear_env(t_env *env)
 {
 	if (env->conf->file)
 		free(env->conf->file);
