@@ -1,45 +1,89 @@
-NAME		=	libft.a
+NAME		= libft.a
 
-SRCS		=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_toupper.c ft_isascii.c \
-				ft_isdigit.c ft_isprint.c ft_memccpy.c ft_itoa.c ft_memcmp.c \
-				ft_memcpy.c ft_memmove.c ft_memset.c ft_isalpha.c ft_putendl_fd.c \
-				ft_putnbr_fd.c ft_putstr_fd.c ft_skip_space.c ft_split.c \
-				ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c \
-				ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strndup.c ft_strnstr.c \
-				ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
-				ft_calloc.c ft_memchr.c ft_putchar_fd.c \
-				is_in_str.c ft_skip_digit.c is_charset_str.c \
-				ft_skip_alpha.c destroy.c ft_tabdel.c ft_tablen.c is_charset.c \
-				ft_putstr.c ft_putchar.c ft_strdel.c ft_strcmp.c
+CHECK		= check/ft_isalnum.c \
+			  check/ft_isalpha.c \
+			  check/ft_isascii.c \
+			  check/ft_isdigit.c \
+			  check/ft_isprint.c \
+			  check/is_charset.c \
+			  check/is_charset_str.c \
+			  check/is_in_str.c \
 
-INCLUDES	=	./
+CONVERT		= convert/ft_atoi.c \
+			  convert/ft_itoa.c \
+			  convert/ft_tolower.c \
+			  convert/ft_toupper.c \
 
-OBJS		=	${SRCS:.c=.o}
+DISPLAY		= display/ft_putchar.c \
+			  display/ft_putstr.c \
+			  display/ft_putchar_fd.c \
+			  display/ft_putendl_fd.c \
+			  display/ft_putnbr_fd.c \
+			  display/ft_putstr_fd.c \
 
-GCC			=	gcc
-RM			=	rm -f
+MEMORY		= memory/ft_bzero.c \
+			  memory/ft_calloc.c \
+			  memory/ft_memccpy.c \
+			  memory/ft_memchr.c \
+			  memory/ft_memcmp.c \
+			  memory/ft_memcpy.c \
+			  memory/ft_memmove.c \
+			  memory/ft_memset.c \
 
-AR			=	ar rc
+STRING		= string/ft_skip_alpha.c \
+			  string/ft_skip_digit.c \
+			  string/ft_skip_space.c \
+			  string/ft_split.c \
+			  string/ft_strchr.c \
+			  string/ft_strcmp.c \
+			  string/ft_strdel.c \
+			  string/ft_strdup.c \
+			  string/ft_strjoin.c \
+			  string/ft_strlcat.c \
+			  string/ft_strlcpy.c \
+			  string/ft_strlen.c \
+			  string/ft_strmapi.c \
+			  string/ft_strncmp.c \
+			  string/ft_strndup.c \
+			  string/ft_strnstr.c \
+			  string/ft_strrchr.c \
+			  string/ft_strtrim.c \
+			  string/ft_substr.c \
+			  string/ft_tabdel.c \
+			  string/ft_tablen.c \
 
-CFLAGS		=	-Wall -Wextra -Werror -I${INCLUDES}
+SRC_PATH	= ./srcs/
+SRC			= $(DISPLAY) $(CHECK) $(CONVERT) $(MEMORY) $(STRING)
+SRCS		= $(addprefix $(SRC_PATH), $(SRC))
+
+FLAGS		= -Wall -Wextra -Werror
+INC			= -I./includes
+
+OBJS 		= $(SRCS:.c=.o)
+
+CC			= @gcc
+
+RM			= @rm -f
 
 %.o: %.c
-				${GCC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	$(CC) $(FLAGS) $(INC) -c $< -o $@
 
-${NAME}:	${OBJS}
-				${AR} ${NAME} ${OBJS}
-				ranlib ${NAME}
+all:	$(NAME)
 
-all:		${NAME}
+$(NAME):${OBJS}
+		@ar rcs ${NAME} ${OBJS}
+		@echo "$(NAME) created"
+		@ranlib $(NAME)
+		@echo "$(NAME) indexed"
 
 clean:
-				${RM} ${OBJS}
+		$(RM) $(OBJS)
+		@echo "$(OBJS) deleted"
 
-fclean:		clean
-			   	${RM} ${NAME}
+fclean:	clean
+		$(RM) $(NAME)
+		@echo "$(NAME) deleted"
 
-re:
-	$(MAKE) fclean
-	$(MAKE) all
+re:		fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:	fclean clean clean_b re all
