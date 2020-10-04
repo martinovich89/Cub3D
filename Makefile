@@ -1,56 +1,58 @@
 NAME		= parsing
 
-GCC			= clang -fsanitize=address -g3
-CFLAGS		= -Wall -Wextra -Werror
+LIB			= -L./libft -lft -I/usr/local/include -L/usr/local/lib -lmlx -L/usr/include -lm -lbsd -lX11 -lXext
+INC			= -I./includes
 
-SRCS		= ./main.c ./srcs/parsing/parse_params.c \
-				./srcs/parsing/parse_map.c \
-				./srcs/errors/ft_error.c \
-				./srcs/GNL/get_next_line.c \
-				./srcs/GNL/get_next_line_utils.c \
-				./srcs/utils/clear.c \
+PARSING		=parsing/parse_params.c \
+			 parsing/parse_map.c \
 
-RM			= rm -rf
+GNL			=GNL/get_next_line.c \
+			GNL/get_next_line_utils.c \
 
-OBJS		=   $(SRCS:.c=.o)
+UTILS		=utils/clear.c \
 
-INCLUDES	= ./includes/
+ERRORS		=errors/ft_error.c \
 
-LIBFT_DIR	= ./libs/libft/
+SRC_PATH	= ./srcs/
+SRC			= $(PARSING) \
+			  $(GNL) \
+			  $(UTILS) \
+			  $(ERRORS) \
+			  main.c \
 
-MLX_DIR		= ./libs/mlx/
+SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
-LIBFT		= libft.a
+FLAGSD		= -Wall -Wextra -Werror -fsanitize=address
+FLAGS		= -Wall -Wextra -Werror
+OBJS		= $(SRCS:.c=.o)
 
-MLX			= compmlx
+CC			= @gcc
 
-ALL_INC		= -I$(INCLUDES) -I$(LIBFT_DIR) -I$(MLX_DIR)
+RM			= @rm -f
 
-ALL_LIB		= -L $(MLX_DIR) -lmlx -lX11 -lXext -lm -L$(LIBFT_DIR) -lft
+all:	$(NAME)
 
-all: $(NAME)
+$(NAME):$(OBJS)
+		@make -C libft
+		@make -C libs/mlx
+		$(CC) $(FLAGSD) $(INC) -o $(NAME) $(OBJS) $(LIB)
+		@echo "$(NAME) created"
 
-$(OBJS): %o : %c                         #on a rajouté les dépendances au petit bonheur la chance ;)
-	$(GCC) $(CFLAGS) -c $< -o $@ $(ALL_INC)
-
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(GCC) $(CFLAGS) $(OBJS) -o $@ $(ALL_INC) $(ALL_LIB)
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(MLX) :
-	$(MAKE) -C $(MLX_DIR)
+%.o: %.c
+	$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 clean:
-	$(MAKE) clean -C $(LIBFT_DIR)
-	$(MAKE) clean -C $(MLX_DIR)
-#	$(RM) -R $(MLX_DIR)*.o
-	$(RM) ./srcs/*.o ./srcs/parsing/*.o ./*.o ./srcs/errors/*.o ./srcs/GNL/*.o ./srcs/utils/*.o
+		@make $@ -C libft
+		@make $@ -C libs/mlx
+		$(RM) $(OBJS)
+		@echo "$(OBJS) deleted"
 
 fclean: clean
-	$(MAKE) fclean -C $(LIBFT_DIR)
-	$(RM) $(NAME)
+		@make $@ -C libft
+		@make $@ -C libs/mlx
+		$(RM) $(NAME)
+		@echo "$(NAME) deleted"
 
-re: fclean
-	$(MAKE)
+re:		fclean all
+
+.PHONY: all clean fclean re

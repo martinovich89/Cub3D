@@ -81,8 +81,6 @@ void	init_env(t_env *env)
 
 int		main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_env *env;
 
 	if ((env = env_alloc()) == NULL)
