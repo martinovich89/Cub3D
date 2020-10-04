@@ -49,7 +49,6 @@ clean:
 
 fclean: clean
 		@make $@ -C libft
-		@make $@ -C libs/mlx
 		$(RM) $(NAME)
 		@echo "$(NAME) deleted"
 
