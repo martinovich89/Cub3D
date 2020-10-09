@@ -33,7 +33,6 @@ MEMORY		= memory/ft_bzero.c \
 STRING		= string/ft_skip_alpha.c \
 			  string/ft_skip_digit.c \
 			  string/ft_skip_space.c \
-			  string/ft_split.c \
 			  string/ft_strchr.c \
 			  string/ft_strcmp.c \
 			  string/ft_strdel.c \
@@ -49,11 +48,14 @@ STRING		= string/ft_skip_alpha.c \
 			  string/ft_strrchr.c \
 			  string/ft_strtrim.c \
 			  string/ft_substr.c \
-			  string/ft_tabdel.c \
-			  string/ft_tablen.c \
+
+TAB			= tab/ft_build_uint_tab.c \
+			  tab/ft_split.c \
+			  tab/ft_tabdel.c \
+			  tab/ft_tablen.c \
 
 SRC_PATH	= ./srcs/
-SRC			= $(DISPLAY) $(CHECK) $(CONVERT) $(MEMORY) $(STRING)
+SRC			= $(DISPLAY) $(CHECK) $(CONVERT) $(MEMORY) $(STRING) $(TAB)
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 FLAGS		= -Wall -Wextra -Werror
