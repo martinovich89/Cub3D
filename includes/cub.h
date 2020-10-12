@@ -1,14 +1,22 @@
 #ifndef CUB_H
 #define CUB_H
 
+#include "libft.h"
+#include "get_next_line.h"
+#include "mlx.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "libft.h"
-#include "get_next_line.h"
-#include "mlx.h"
+
+# ifndef MAX_RES_W
+#  define MAX_RES_W 1920
+# endif
+
+# ifndef MAX_RES_H
+#  define MAX_RES_H 1080
+# endif
 
 # ifndef CONF_PATH
 #  define CONF_PATH "/home/martin/Desktop/42-projects/Cub3D/conf.cub"
@@ -124,14 +132,53 @@ void			init_mlx(t_env *env);
 void			ft_clear_env(t_env *env);
 void			ft_error(char *str, t_env *env);
 void			parse_params(t_env *env);
-void			parse_map();
-void			plane_calc(t_vector dir, t_vector *plane, float angle);
+void			parse_map(t_env *env);
 void			translation(t_env *env, int nb);
+float			rad_conv(float angle);
+
+void			plane_calc(t_vector dir, t_vector *plane, float angle);
+void			cam_calc(t_env *env, int nb);
+void			ray_calc(t_env *env);
+void			gap_calc(t_env *env);
+void			mapXY_calc(t_map *map);
+void			sign_calc(t_map *map);
+void			next_calc(t_env *env);
+void			wall_dist_calc(t_env *env);
+void			perp_wall_dist_calc(t_map *map);
+void			wall_calc(t_env *env);
+void			ratio_calc(t_env *env);
+void			wallX_calc(t_env *env);
+void			pick_texture(t_env *env);
+void			texPos_calc(t_env *env);
+void			texXY_calc(t_env *env);
+int				get_tex_color(t_env *env);
+void			fill_stripe(t_env *env, int i);
+
+
+
 
 void			init_dir(t_env *env);
 void			init_pos(t_env *env);
 void			init_fov(t_env *env);
 void			init_plane(t_env *env);
 void			init_player(t_env *env);
+void			init_dir(t_env *env);
+void			init_pos(t_env *env);
+void			init_fov(t_env *env);
+void			init_plane(t_env *env);
+
+int				is_valid_path(char *str);
+void			set_tex_path(t_env *env, char *path, int nb);
+void			parse_tex(t_env *env, char *line, int nb);
+void			set_colr(t_env *env, char *str, int nb);
+int				is_valid_colr(char *str);
+void			parse_color(t_env *env, char *line, int nb);
+void			set_res_h(t_env *env, int nb);
+void			set_res_w(t_env *env, int nb);
+void			parse_res(t_env *env, char *line);
+
+void			check_map_line(t_env *env, char *line);
+int				is_valid_char(t_conf *conf, size_t i, size_t j);
+int				is_valid_map(t_conf *conf);
 
 #endif

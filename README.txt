@@ -56,29 +56,3 @@ CONSIGNES :
 - Les espaces sont pris en compte dans le parsing de la map, et doivent donc aussi être alloués.
 
 //////////////////////////////////////////////////////////////////////////////////
-
-ELEMENTS DE RESOLUTION
-
-I/ La mlx
- 1. Installer la mlx
- 2. La faire compiler
- 3. Afficher une fenêtre
- 4. Faire fonctionner les options de la fenêtre
- 4. Dessiner un carré de pixels colorés dans la fenêtre
-
-II/ Le parsing
- 1. Déclarer les structures et les allouer / initialiser à l'aide de "constructors"
- 2. Aller chercher les valeurs décrites dans le fichier à l'aide de setters qui utilisent get_next_line pour :
-  a. les infos de résolution / couleurs / textures
-  b. la map
- 3. Checker si les valeurs sont correctes / existantes pour chaque élément.
-
-III/ Le Rendering
- 1. Faire une boucle qui actualise la position et l'orientation du joueur dans la map en fonction des touches appuyées en utilisant:
-  a. Une fonction de translation
-  b. Une fonction de rotation
-  c. Une gestion de collision aux limites de la map, sinon segfault
- 2. Pour afficher le résultat à l'écran, utiliser une fonction de ray-casting calculant :
-  a. La distance du joueur le séparant du premier mur rencontré en prolongeant son axe central de champs de vision et tous les autres axes sur chaque pixel en largeur.
-  b. La hauteur des murs en fonction de cette direction pour chaque bande verticale de pixels
-  c. Ajuster les texels de la texture concernée en conséquence.

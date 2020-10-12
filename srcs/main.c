@@ -18,7 +18,7 @@ int				close_window(int keycode, t_env *env)
 	return (keycode);
 }
 
-int		moves(int keycode, t_env *env)
+int		key_press(int keycode, t_env *env)
 {
 	if (keycode == 65361)
 		env->left = 1;
@@ -35,7 +35,7 @@ int		moves(int keycode, t_env *env)
 	return (0);
 }
 
-int		stops(int keycode, t_env *env)
+int		key_release(int keycode, t_env *env)
 {
 	if (keycode == 65307)
 	{
@@ -57,24 +57,6 @@ int		stops(int keycode, t_env *env)
 	return (0);
 }
 
-/*void			fill_img(unsigned int **img_tab)
-{
-	int x;
-	int y;
-
-	y = 0;
-	while (y < 600)
-	{
-		x = 0;
-		while (x < 800)
-		{
-			img_tab[y][x] = 0x00FF0000;
-			x++;
-		}
-		y++;
-	}
-}*/
-
 void            draw_image(t_data *data, unsigned int **tab)
 {
     int x;
@@ -95,9 +77,6 @@ void            draw_image(t_data *data, unsigned int **tab)
 
 int		render_next_frame(t_env *env)
 {
-/*	fill_img(env->rndr->sheet);
-	draw_image(&env->img, env->rndr->sheet);*/
-
 	ray_casting(env);
 	draw_image(&env->img, env->rndr->sheet);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
@@ -108,12 +87,10 @@ void	launch_game(t_env *env)
 {
 	parse_params(env);
 	parse_map(env);
-//	render_next_frame(env);
 	init_player(env);
 	init_mlx(env);
-//	mlx_key_hook(env->win, close_window, env);
-	mlx_hook(env->win, 02, 1L<<0, moves, env);
-	mlx_hook(env->win, 03, 1L<<1, stops, env);
+	mlx_hook(env->win, 02, 1L<<0, key_press, env);
+	mlx_hook(env->win, 03, 1L<<1, key_release, env);
 	mlx_loop_hook(env->mlx, render_next_frame, env);
 	mlx_loop(env->mlx);
 }
@@ -277,13 +254,16 @@ void	init_env(t_env *env)
 void	init_textures(t_env *env)
 {
 	int i;
-	char *textures[4] = {"./textures/bluestone.xpm", "./textures/purplestone.xpm", "./textures/wall_1.xpm", "./textures/wall_2.xpm"};
+	char *textures[4] = {env->conf->path_no
+	, env->conf->path_ea, env->conf->path_we, env->conf->path_so};
 	i = 0;
 	while (i < 4)
 	{
-		if (!(env->tex[i].img = mlx_xpm_file_to_image(env->mlx, textures[i], &env->tex[i].W, &env->tex[i].H)))
+		if (!(env->tex[i].img = mlx_xpm_file_to_image(env->mlx
+		, textures[i], &env->tex[i].W, &env->tex[i].H)))
 			ft_error("failed to allocate tex[i].img\n", env);
-		if (!(env->tex[i].addr = mlx_get_data_addr(env->tex[i].img, &env->tex[i].bpp, &env->tex[i].line_length, &env->tex[i].endian)))
+		if (!(env->tex[i].addr = mlx_get_data_addr(env->tex[i].img
+		, &env->tex[i].bpp, &env->tex[i].line_length, &env->tex[i].endian)))
 			ft_error("failed to allocate tex[i].addr\n", env); 
 		i++;
 	}
@@ -293,14 +273,18 @@ void	init_mlx(t_env *env)
 {
 	if (!(env->mlx = mlx_init()))
 		ft_error("failed to allocate mlx\n", env);
-	if(!(env->win = mlx_new_window(env->mlx, env->conf->res_w, env->conf->res_h, "cub3D")))
+	if(!(env->win = mlx_new_window(env->mlx
+	, env->conf->res_w, env->conf->res_h, "cub3D")))
 		ft_error("failed to allocate win\n", env);
-	if (!(env->img.img = mlx_new_image(env->mlx, env->conf->res_w, env->conf->res_h)))
+	if (!(env->img.img = mlx_new_image(env->mlx
+	, env->conf->res_w, env->conf->res_h)))
 		ft_error("failed to allocate img.img\n", env);
-	if (!(env->img.addr = mlx_get_data_addr(env->img.img, &env->img.bpp, &env->img.line_length, &env->img.endian)))
+	if (!(env->img.addr = mlx_get_data_addr(env->img.img
+	, &env->img.bpp, &env->img.line_length, &env->img.endian)))
 		ft_error("failed to allocate img.addr\n", env);
 	init_textures(env);
-	if (!(env->rndr->sheet = ft_build_uint_tab(env->conf->res_w, env->conf->res_h)))
+	if (!(env->rndr->sheet
+	= ft_build_uint_tab(env->conf->res_w, env->conf->res_h)))
 		ft_error("failed to allocate rndr->sheet\n", env);
 }
 
