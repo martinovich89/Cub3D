@@ -154,18 +154,11 @@ void			texXY_calc(t_env *env);
 int				get_tex_color(t_env *env);
 void			fill_stripe(t_env *env, int i);
 
-
-
-
 void			init_dir(t_env *env);
 void			init_pos(t_env *env);
 void			init_fov(t_env *env);
 void			init_plane(t_env *env);
 void			init_player(t_env *env);
-void			init_dir(t_env *env);
-void			init_pos(t_env *env);
-void			init_fov(t_env *env);
-void			init_plane(t_env *env);
 
 int				is_valid_path(char *str);
 void			set_tex_path(t_env *env, char *path, int nb);
