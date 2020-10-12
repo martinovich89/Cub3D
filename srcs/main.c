@@ -15,7 +15,46 @@ int				close_window(int keycode, t_env *env)
 		mlx_destroy_window(env->mlx, env->win);
 		exit (1);
 	}
-	return (1);
+	return (keycode);
+}
+
+int		moves(int keycode, t_env *env)
+{
+	if (keycode == 65361)
+		env->left = 1;
+	if (keycode == 65363)
+		env->right = 1;
+	if (keycode == 119)
+		env->up = 1;
+	if (keycode == 97)
+		env->strafe_left = 1;
+	if (keycode == 100)
+		env->strafe_right = 1;
+	if (keycode == 115)
+		env->down = 1;
+	return (0);
+}
+
+int		stops(int keycode, t_env *env)
+{
+	if (keycode == 65307)
+	{
+		mlx_destroy_window(env->mlx, env->win);
+		exit (1);
+	}
+	if (keycode == 65361)
+		env->left = 0;
+	if (keycode == 65363)
+		env->right = 0;
+	if (keycode == 119)
+		env->up = 0;
+	if (keycode == 97)
+		env->strafe_left = 0;
+	if (keycode == 100)
+		env->strafe_right = 0;
+	if (keycode == 115)
+		env->down = 0;
+	return (0);
 }
 
 /*void			fill_img(unsigned int **img_tab)
@@ -70,8 +109,11 @@ void	launch_game(t_env *env)
 	parse_params(env);
 	parse_map(env);
 //	render_next_frame(env);
+	init_player(env);
 	init_mlx(env);
-	mlx_key_hook(env->win, close_window, env);
+//	mlx_key_hook(env->win, close_window, env);
+	mlx_hook(env->win, 02, 1L<<0, moves, env);
+	mlx_hook(env->win, 03, 1L<<1, stops, env);
 	mlx_loop_hook(env->mlx, render_next_frame, env);
 	mlx_loop(env->mlx);
 }
@@ -148,6 +190,14 @@ t_env	*env_alloc()
 	env->rndr->sheet = NULL;
 }*/
 
+void	init_player(t_env *env)
+{
+	init_dir(env);
+	init_pos(env);
+	init_fov(env);
+	init_plane(env);
+}
+
 void	init_conf(t_conf *conf)
 {
 	conf->map = NULL;
@@ -216,6 +266,12 @@ void	init_env(t_env *env)
 	init_map(env->map);
 	init_rndr(env->rndr);
 	init_img(&env->img);
+	env->left = 0;
+	env->right = 0;
+	env->up = 0;
+	env->down = 0;
+	env->strafe_left = 0;
+	env->strafe_right = 0;
 }
 
 void	init_textures(t_env *env)

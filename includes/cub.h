@@ -107,6 +107,12 @@ typedef struct	s_env
 	t_data	sp;
 	void	*mlx;
 	void	*win;
+	int		left;
+	int		right;
+	int		up;
+	int		down;
+	int		strafe_left;
+	int		strafe_right;
 }				t_env;
 
 void			rotation(t_vector *vector, float angle);
@@ -120,7 +126,12 @@ void			ft_error(char *str, t_env *env);
 void			parse_params(t_env *env);
 void			parse_map();
 void			plane_calc(t_vector dir, t_vector *plane, float angle);
-void			new_pl_pos(t_env *env);
+void			translation(t_env *env, int nb);
 
+void			init_dir(t_env *env);
+void			init_pos(t_env *env);
+void			init_fov(t_env *env);
+void			init_plane(t_env *env);
+void			init_player(t_env *env);
 
 #endif

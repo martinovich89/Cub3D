@@ -22,20 +22,22 @@ void	plane_calc(t_vector dir, t_vector *plane, float angle)
 		plane->x *= -1;*/
 }
 
-void	new_pl_pos(t_env *env)
+void	translation(t_env *env, int nb)
 {
-	float	new_pos_x;
-	float	new_pos_y;
+	t_vector	new_pos;
+	t_vector	new_dir;
 
-	new_pos_x = env->map->pos.x + env->map->dir.x * 0.017;
-	new_pos_y = env->map->pos.y + env->map->dir.y * 0.017;
-	if (env->conf->map[(int)(new_pos_x + 0.2)][(int)env->map->pos.y] == '0')
-		env->map->pos.x = (new_pos_x);
-	if (env->conf->map[(int)env->map->pos.x][(int)(new_pos_y + 0.2)] == '0')
-		env->map->pos.y = (new_pos_y);
-}
-
-void	new_pl_dir(t_env *env, int sign)
-{
-	rotation(&env->map->dir, (env->map->fov / 20.0F * (float)sign));
+	new_dir.x = env->map->dir.x;
+	new_dir.y = env->map->dir.y;
+	rotation(&new_dir, (nb * M_PI / 2));
+	new_pos.x = env->map->pos.x + new_dir.x * 0.00004F;
+	new_pos.y = env->map->pos.y + new_dir.y * 0.00004F;
+	if (is_in_str("0NEWS", env->conf->map[(int)(new_pos.y + 0.3)][(int)env->map->pos.x]) && new_dir.y > 0)
+		env->map->pos.y = (new_pos.y);
+	if (is_in_str("0NEWS", env->conf->map[(int)env->map->pos.y][(int)(new_pos.x + 0.3)]) && new_dir.x > 0)
+		env->map->pos.x = (new_pos.x);
+	if (is_in_str("0NEWS", env->conf->map[(int)(new_pos.y - 0.3)][(int)env->map->pos.x]) && new_dir.y < 0)
+		env->map->pos.y = (new_pos.y);
+	if (is_in_str("0NEWS", env->conf->map[(int)env->map->pos.y][(int)(new_pos.x - 0.3)]) && new_dir.x < 0)
+		env->map->pos.x = (new_pos.x);
 }
