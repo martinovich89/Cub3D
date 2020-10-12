@@ -125,13 +125,13 @@ void	wall_dist_calc(t_env *env)
 		{
 			env->map->nextX += env->map->gapX;
 			env->map->x += env->map->signX;
-			env->map->side = (env->map->dir.x < 0.0F) ? 0 : 3;
+			env->map->side = (env->map->ray.x < 0.0F) ? 0 : 3;
 		}
 		else
 		{
 			env->map->nextY += env->map->gapY;
 			env->map->y += env->map->signY;
-			env->map->side = (env->map->dir.y < 0.0F) ? 2 : 1;
+			env->map->side = (env->map->ray.y < 0.0F) ? 2 : 1;
 		}
 	}
 }
@@ -245,12 +245,12 @@ void	apply_moves(t_env *env)
 	int pwet;
 
 	pwet = 0;
-	(env->left == 1) ? rotation(&env->map->dir, (env->map->fov / 50000 * -1)) : pwet++;
+	(env->left == 1) ? rotation(&env->map->dir, (env->map->fov / 50000 * -1)) : pwet--;
 	(env->up == 1) ? translation(env, 0) : pwet++;
 	(env->down == 1) ? translation(env, 2) : pwet--;
 	(env->right == 1) ? rotation(&env->map->dir, (env->map->fov / 50000)) : pwet--;
-	(env->strafe_left == 1) ? translation(env, 3) : pwet++;
-	(env->strafe_right == 1) ? translation(env, 1) : pwet++;
+	(env->strafe_left == 1) ? translation(env, 3) : pwet--;
+	(env->strafe_right == 1) ? translation(env, 1) : pwet--;
 }
 
 void	ray_casting(t_env *env)

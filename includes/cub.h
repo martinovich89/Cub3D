@@ -10,9 +10,9 @@
 #include "get_next_line.h"
 #include "mlx.h"
 
-#ifndef CONF_PATH
-#define CONF_PATH "/home/martin/Desktop/42-projects/Cub3D/conf.cub"
-#endif
+# ifndef CONF_PATH
+#  define CONF_PATH "/home/martin/Desktop/42-projects/Cub3D/conf.cub"
+# endif
 
 # ifndef FOV
 #  define FOV 90

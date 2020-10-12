@@ -277,11 +277,11 @@ void	init_env(t_env *env)
 void	init_textures(t_env *env)
 {
 	int i;
-
+	char *textures[4] = {"./textures/bluestone.xpm", "./textures/purplestone.xpm", "./textures/wall_1.xpm", "./textures/wall_2.xpm"};
 	i = 0;
 	while (i < 4)
 	{
-		if (!(env->tex[i].img = mlx_xpm_file_to_image(env->mlx, "./textures/bluestone.xpm", &env->tex[i].W, &env->tex[i].H)))
+		if (!(env->tex[i].img = mlx_xpm_file_to_image(env->mlx, textures[i], &env->tex[i].W, &env->tex[i].H)))
 			ft_error("failed to allocate tex[i].img\n", env);
 		if (!(env->tex[i].addr = mlx_get_data_addr(env->tex[i].img, &env->tex[i].bpp, &env->tex[i].line_length, &env->tex[i].endian)))
 			ft_error("failed to allocate tex[i].addr\n", env); 
