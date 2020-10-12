@@ -1,4 +1,4 @@
-R 1920 1080
+R 800 600
 
 NO ./textures/tex_no.txt
 SO ./textures/tex_so.txt
@@ -6,13 +6,13 @@ WE ./textures/tex_we.txt
 EA ./textures/tex_ea.txt
 
 S ./textures/tex_sp.txt
-F 220,100,0
-C 225,30,0
+F 95,105,115
+C 100,85,90
 
        11111
        10001111
 111111110100001
-100000000100001
+10000000010S001
 100011110101111
 10001  10111
 11111  101

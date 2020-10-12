@@ -29,6 +29,7 @@ MEMORY		= memory/ft_bzero.c \
 			  memory/ft_memcpy.c \
 			  memory/ft_memmove.c \
 			  memory/ft_memset.c \
+			  memory/ft_uint_strdel.c \
 
 STRING		= string/ft_skip_alpha.c \
 			  string/ft_skip_digit.c \
@@ -53,6 +54,8 @@ TAB			= tab/ft_build_uint_tab.c \
 			  tab/ft_split.c \
 			  tab/ft_tabdel.c \
 			  tab/ft_tablen.c \
+			  tab/ft_uint_tabdel.c \
+			  tab/ft_uint_tablen.c \
 
 SRC_PATH	= ./srcs/
 SRC			= $(DISPLAY) $(CHECK) $(CONVERT) $(MEMORY) $(STRING) $(TAB)

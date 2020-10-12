@@ -22,6 +22,9 @@
 
 # define BUFFER_SIZE 1
 
+void    ft_uint_strdel(unsigned int *str);
+int     ft_uint_tablen(unsigned int **tab);
+void    ft_uint_tabdel(unsigned int **tab);
 void    ft_putchar(char c);
 void    ft_putstr(char *str);
 int     is_charset(char c, char *str);

@@ -90,9 +90,6 @@ void	parse_tex(t_env *env, char *line, int nb)
 void	set_colr(t_env *env, char *str, int nb)
 {
 	char	**tab;
-	int		r;
-	int		g;
-	int		b;
 
 	if (!(tab = ft_split(str, ',')))
 		ft_error("ram allocation error", env);

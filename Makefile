@@ -1,34 +1,39 @@
-NAME		= parsing
+NAME		=	parsing
 
-LIB			= -L./libft -lft -I/usr/local/include -L/usr/local/lib -lmlx -L/usr/include -lm -lbsd -lX11 -lXext
-INC			= -I./includes
+LIB			=	-L./libft -lft -I/usr/local/include -L/usr/local/lib -lmlx -L/usr/include -lm -lbsd -lX11 -lXext
+INC			=	-I./includes
 
-PARSING		=parsing/parse_params.c \
-			 parsing/parse_map.c \
+PARSING		=	parsing/parse_params.c \
+				parsing/parse_map.c \
 
-GNL			=GNL/get_next_line.c \
-			GNL/get_next_line_utils.c \
+RAY-CASTING =	ray-casting/ray_casting.c \
+				ray-casting/rc_utils_1.c \
 
-UTILS		=utils/clear.c \
+GNL			=	GNL/get_next_line.c \
+				GNL/get_next_line_utils.c \
 
-ERRORS		=errors/ft_error.c \
+UTILS		=	utils/clear.c \
+				utils/ft_build_uint_tab.c\
 
-SRC_PATH	= ./srcs/
-SRC			= $(PARSING) \
-			  $(GNL) \
-			  $(UTILS) \
-			  $(ERRORS) \
-			  main.c \
+ERRORS		=	errors/ft_error.c \
 
-SRCS		= $(addprefix $(SRC_PATH), $(SRC))
+SRC_PATH	=	./srcs/
+SRC			=	$(PARSING) \
+				$(RAY-CASTING) \
+				$(GNL) \
+				$(UTILS) \
+				$(ERRORS) \
+				main.c \
 
-FLAGSD		= -Wall -Wextra -Werror -fsanitize=address
-FLAGS		= -Wall -Wextra -Werror
-OBJS		= $(SRCS:.c=.o)
+SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 
-CC			= @gcc
+FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror
+OBJS		=	$(SRCS:.c=.o)
 
-RM			= @rm -f
+CC			=	@gcc
+
+RM			=	@rm -f
 
 all:	$(NAME)
 

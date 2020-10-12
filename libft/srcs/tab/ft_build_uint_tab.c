@@ -4,8 +4,8 @@ unsigned int	**ft_build_uint_tab(int w, int h)
 {
 	unsigned int	**tab;
 	int				i;
-	int				j;
 
+	i = 0;
 	if (!(tab = malloc(sizeof(*tab) * h)))
 		return (NULL);
 	while (i < h)

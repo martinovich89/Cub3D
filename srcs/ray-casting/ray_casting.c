@@ -2,25 +2,25 @@
 
 void	init_dir(t_env *env)
 {
-	if (env->conf->dir = 'N')
+	if (env->conf->player == 'N')
 	{
-		env->map->dir->x = -1.0F;
-		env->map->dir->y = 0.0F;
+		env->map->dir.x = 0.0F;
+		env->map->dir.y = -1.0F;
 	}
-	if (env->conf->dir = 'E')
+	if (env->conf->player == 'E')
 	{
-		env->map->dir->x = 0.0F;
-		env->map->dir->y = 1.0F;
+		env->map->dir.x = 1.0F;
+		env->map->dir.y = 0.0F;
 	}
-	if (env->conf->dir = 'W')
+	if (env->conf->player == 'W')
 	{
-		env->map->dir->x = 0.0F;
-		env->map->dir->y = -1.0F;
+		env->map->dir.x = -1.0F;
+		env->map->dir.y = 0.0F;
 	}
-	if (env->conf->dir = 'S')
+	if (env->conf->player == 'S')
 	{
-		env->map->dir->x = 1.0F;
-		env->map->dir->y = 0.0F;
+		env->map->dir.x = 0.0F;
+		env->map->dir.y = 1.0F;
 	}
 }
 
@@ -37,8 +37,8 @@ void	init_pos(t_env *env)
 		{
 			if (is_in_str("NEWS", env->conf->map[i][j]))
 			{
-				env->map->pos->x = (float)j;
-				env->map->pos->y = (float)i;
+				env->map->pos.x = (float)j + 0.5F;
+				env->map->pos.y = (float)i + 0.5F;
 			}
 			j++;
 		}
@@ -60,7 +60,7 @@ void	init_fov(t_env *env)
 
 void	init_plane(t_env *env)
 {
-	env->map->plane->x = plane_calc(env->map->dir, env->map->plane, env->map->fov);
+	plane_calc(env->map->dir, &env->map->plane, -env->map->fov);
 }
 
 void	cam_calc(t_env *env, int nb)
@@ -70,68 +70,68 @@ void	cam_calc(t_env *env, int nb)
 
 void	ray_calc(t_env *env)
 {
-	env->map->ray->x = env->map->dir->x + env->map->plane->x * env->map->cam_ratio;
-	env->map->ray->y = env->map->dir->y + env->map->plane->y * env->map->cam_ratio;
+	env->map->ray.x = env->map->dir.x + env->map->plane.x * env->map->cam_ratio;
+	env->map->ray.y = env->map->dir.y + env->map->plane.y * env->map->cam_ratio;
 }
 
-void	gab_calc(t_env *env)
+void	gap_calc(t_env *env)
 {
-	if (env->map->ray->y == 0.0F)
+	if (env->map->ray.y == 0.0F)
 		env->map->gapX = 0.0F;
 	else
 	{
-		env->map->gapX = (env->map->ray->x == 0.0F) ? 1.0F : abs(1.0F / env->map->ray->x);
+		env->map->gapX = (env->map->ray.x == 0.0F) ? 1.0F : fabs(1.0F / env->map->ray.x);
 	}
-	if (env->map->ray->x == 0.0F)
+	if (env->map->ray.x == 0.0F)
 		env->map->gapY = 0.0F;
 	else
 	{
-		env->map->gapY = (env->map->ray->y == 0.0F) ? 1.0F : abs(1.0F / env->map->ray->y);
+		env->map->gapY = (env->map->ray.y == 0.0F) ? 1.0F : fabs(1.0F / env->map->ray.y);
 	}
 }
 
 void	mapXY_calc(t_map *map)
 {
-	map->x = (int)map->pos->x;
-	map->y = (int)map->pos->y;
+	map->x = (int)map->pos.x;
+	map->y = (int)map->pos.y;
 }
 
 void	sign_calc(t_map *map)
 {
-	map->signX = (map->dir->x < 0.0F) ? -1 : 1;
-	map->signY = (map->dir->y < 0.0F) ? -1 : 1;
+	map->signX = (map->ray.x < 0.0F) ? -1 : 1;
+	map->signY = (map->ray.y < 0.0F) ? -1 : 1;
 }
 
 void	next_calc(t_env *env)
 {
-	env->map->gapX = (env->map->ray->x < 0.0F)
-						 ? (env->map->pos->x - (float)env->map->x) * env->map->gapX
-						 : ((float)env->map->x + 1.0F - env->map->pos->x) * env->map->gapX;
-	env->map->gapY = (env->map->ray->y < 0.0F)
-						 ? (env->map->pos->y - (float)env->map->y) * env->map->gapY
-						 : ((float)env->map->y + 1.00F - env->map->pos->y) * env->map->gapY;
+	env->map->nextX = (env->map->ray.x < 0.0F)
+	? (env->map->pos.x - (float)env->map->x) * env->map->gapX
+	: ((float)env->map->x + 1.0F - env->map->pos.x) * env->map->gapX;
+	env->map->nextY = (env->map->ray.y < 0.0F)
+	? (env->map->pos.y - (float)env->map->y) * env->map->gapY
+	: ((float)env->map->y + 1.00F - env->map->pos.y) * env->map->gapY;
 }
 
 void	wall_dist_calc(t_env *env)
 {
-	int	mapX;
+/*	int	mapX;
 	int	mapY;
 
 	mapX = env->map->x;
-	mapY = env->map->y;
-	while (env->conf->map[mapX][mapY] != 1)
+	mapY = env->map->y;*/
+	while (env->conf->map[env->map->y][env->map->x] != '1')
 	{
 		if (env->map->nextX < env->map->nextY)
 		{
 			env->map->nextX += env->map->gapX;
-			mapX += env->map->signX;
-			env->map->side = (env->map->dir->x < 0.0F) ? 0 : 3;
+			env->map->x += env->map->signX;
+			env->map->side = (env->map->dir.x < 0.0F) ? 0 : 3;
 		}
 		else
 		{
 			env->map->nextY += env->map->gapY;
-			mapY += env->map->signY;
-			env->map->side = (env->map->dir->y < 0.0F) ? 2 : 1;
+			env->map->y += env->map->signY;
+			env->map->side = (env->map->dir.y < 0.0F) ? 2 : 1;
 		}
 	}
 }
@@ -139,9 +139,11 @@ void	wall_dist_calc(t_env *env)
 void	perp_wall_dist_calc(t_map *map)
 {
 	if (map->side == 0 || map->side == 3)
-		map->perp_wall_dist = ((float)map->x - map->pos->x + (1.0F - (float)map->signX) / 2.0F) / map->ray->x;
+		map->perp_wall_dist = ((float)map->x - map->pos.x + (1.0F - (float)map->signX) / 2.0F) / map->ray.x;
 	else
-		map->perp_wall_dist = ((float)map->y - map->pos->y + (1.0F - (float)map->signY) / 2.0F) / map->ray->y;
+		map->perp_wall_dist = ((float)map->y - map->pos.y + (1.0F - (float)map->signY) / 2.0F) / map->ray.y;
+/*	if (map->perp_wall_dist < 0)
+		map->perp_wall_dist *= -1;*/
 }
 
 void	wall_calc(t_env *env)
@@ -151,36 +153,47 @@ void	wall_calc(t_env *env)
 	env->rndr->wall_bot = (int)((float)env->conf->res_h / 2.0F + (float)env->rndr->wallH / 2.0F); // -hmur/2 + hmur = hmur/2
 	if (env->rndr->wall_top < 0)
 		env->rndr->wall_top = 0;
-	if (env->rndr->wall_top >= env->conf->res_h)
-		env->rndr->wall_top = env->conf->res_h - 1;
+	if (env->rndr->wall_bot >= env->conf->res_h)
+		env->rndr->wall_bot = env->conf->res_h - 1;
 }
 
 void	ratio_calc(t_env *env)
 {
-	env->rndr->ratio = (float)env->rndr->wallH / (float)env->conf->res_h;
+	env->rndr->ratio = (float)env->tex->H / (float)env->rndr->wallH;
 }
 
 void	wallX_calc(t_env *env)
 {
 	if (env->map->side == 0 || env->map->side == 3)
-		env->rndr->wallX = env->map->pos->y + env->map->perp_wall_dist * env->map->ray->y;
+		env->rndr->wallX = env->map->pos.y + env->map->perp_wall_dist * env->map->ray.y;
 	else
-		env->rndr->wallX = env->map->pos->x + env->map->perp_wall_dist * env->map->ray->x;
-	if (env->map->side == 0 || env->map->side == 2)
-		env->rndr->wallX = (float)env->map->x + 1.0F - env->rndr->wallX;
-	else
-		env->rndr->wallX = env->rndr->wallX - (float)env->map->x;
+		env->rndr->wallX = env->map->pos.x + env->map->perp_wall_dist * env->map->ray.x;
+	env->rndr->wallX -= floor((env->rndr->wallX));
+}
+
+void	pick_texture(t_env *env)
+{
+	env->rndr->tex = &env->tex[env->map->side];
 }
 
 void	texPos_calc(t_env *env)
 {
-	env->rndr->texPos = (((float)env->rndr->wallH - (float)env->conf->res_h) / 2.0F + (float)env->rndr->wall_top) * env->rndr->ratio;
+	env->rndr->texPosX = (((float)env->rndr->wallH - (float)env->conf->res_h) / 2.0F + (float)env->rndr->wall_top) * env->rndr->ratio;
 }
 
 void	texXY_calc(t_env *env)
 {
-	env->rndr->texX = (int)(env->rndr->wallX * (float)env->rndr->texW);
-	env->rndr->texY = (int)env->rndr->texPos;
+	env->rndr->texX = (int)(env->rndr->wallX * (float)env->rndr->tex->W);
+	env->rndr->texY = (int)env->rndr->texPosX;
+}
+
+int		get_tex_color(t_env *env)
+{
+	int color;
+
+	if (env->rndr->texPosX >= 0 && env->rndr->texPosX < env->rndr->tex->H && env->rndr->texX >= 0 && env->rndr->texX < env->rndr->tex->W)
+		color = *(int*)(env->rndr->tex->addr + (4 * env->rndr->tex->W * (int)env->rndr->texY) + (4 * (int)env->rndr->texX));
+	return (color);
 }
 
 void	fill_stripe(t_env *env, int i)
@@ -188,46 +201,56 @@ void	fill_stripe(t_env *env, int i)
 	int	j;
 
 	j = 0;
+
 	while (j < env->conf->res_h && j < env->rndr->wall_top)
 	{
-		env->rndr->img[i][j] = (unsigned int)env->conf->ceil;
+		env->rndr->sheet[j][i] = (unsigned int)env->conf->ceil;
 		j++;
 	}
 	while (j >= env->rndr->wall_top && j <= env->rndr->wall_bot)
 	{
-		env->rndr->img[i][j] = (tex[env->map->side][env->rndr->texX][env->rndr->texY]);
-		env->rndr->texPos += env->rndr->ratio;
-		env->rndr->texY = (int)env->rndr->texPos & (env->rndr->texH - 1);
+		env->rndr->sheet[j][i] = get_tex_color(env);
+		env->rndr->texPosX += env->rndr->ratio;
+		env->rndr->texY = (int)env->rndr->texPosX & (env->rndr->tex->H - 1);
 		j++;
 	}
 	while (j < env->conf->res_h)
 	{
-		env->rndr->img[i][j] = (unsigned int)env->conf->floo;
+		env->rndr->sheet[j][i] = (unsigned int)env->conf->floo;
 		j++;
 	}
+}
+
+void	map_all_calc(t_env *env, int i)
+{
+	init_dir(env);
+	init_pos(env);
+	init_fov(env);
+	init_plane(env);
+	cam_calc(env, i);
+	ray_calc(env);
+	gap_calc(env);
+	mapXY_calc(env->map);
+	sign_calc(env->map);
+	next_calc(env);
+	wall_dist_calc(env);
+	perp_wall_dist_calc(env->map);
+	wall_calc(env);
+	pick_texture(env);
+	ratio_calc(env);
+	wallX_calc(env);
+	texPos_calc(env);
+	texXY_calc(env);
 }
 
 void	ray_casting(t_env *env)
 {
 	int	i;
 
-	ft_build_uint_tab(env->conf->res_w, env->conf->res_h);
 	i = 0;
 	while (i < env->conf->res_w)
 	{
-		cam_calc(env, i);
-		ray_calc(env);
-		gap_calc(env);
-		mapXY_calc(env->map);
-		sign_calc(env->map);
-		next_calc(env);
-		wall_dist_calc(env);
-		perp_wall_dist_calc(env->map);
-		wall_calc(env);
-		ratio_calc(env);
-		wallX_calc(env);
-		texPos_calc(env);
-		texXY_calc(env);
+		map_all_calc(env, i);
 		fill_stripe(env, i);
 		i++;
 	}

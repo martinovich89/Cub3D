@@ -28,6 +28,17 @@ typedef struct	s_vector
 	float y;
 }				t_vector;
 
+typedef struct	s_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	int		W;
+	int		H;
+}				t_data;
+
 typedef struct	s_conf
 {
 	char			*file;
@@ -46,6 +57,7 @@ typedef struct	s_conf
 	int				map_w;
 	int				map_h;
 	int				is_bmp;
+	char			player;
 	char			dir;
 }				t_conf;
 
@@ -55,11 +67,11 @@ typedef struct	s_map
 	int			y;
 	float		fov;
 	char		**map_tab;
-	t_vector	*dir;
-	t_vector	*pos;
-	t_vector	*plane;
+	t_vector	dir;
+	t_vector	pos;
+	t_vector	plane;
 	float		cam_ratio;
-	t_vector	*ray;
+	t_vector	ray;
 	float		nextX;
 	float		nextY;
 	float		gapX;
@@ -68,19 +80,19 @@ typedef struct	s_map
 	int			signY;
 	int			side;
 	float		perp_wall_dist;
+	float		rota;
 }				t_map;
 
 typedef struct	s_rndr
 {
-	unsigned int	**img;
-	int				texW; // Initialiser texW et texH !!
-	int				texH; // Il semble que la fonction mlx_xpm_to_image() soit la solution pour set texW et texH !
+	unsigned int	**sheet;
 	int				wallH;
 	int				wall_bot;
 	int				wall_top;
 	float			wallX;
 	float			ratio;
-	float			texPos;
+	t_data			*tex;
+	float			texPosX;
 	int				texX;
 	int				texY;
 }				t_rndr;
@@ -90,14 +102,25 @@ typedef struct	s_env
 	t_conf	*conf;
 	t_map	*map;
 	t_rndr 	*rndr;
+	t_data	img;
+	t_data	tex[4];
+	t_data	sp;
+	void	*mlx;
+	void	*win;
 }				t_env;
 
-void	ft_clear_env(t_env *env);
-void	ft_error(char *str, t_env *env);
-void	parse_params(t_env *env);
-void	parse_map();
-float	plane_calc(t_vector *dir, t_vector *plane, float angle);
-void	new_pl_pos(t_env *env);
+void			rotation(t_vector *vector, float angle);
+void			new_pl_pos(t_env *env);
+void			new_pl_dir(t_env *env, int sign);
+void			ray_casting(t_env *env);
+unsigned int	**ft_build_uint_tab(int w, int h);
+void			init_mlx(t_env *env);
+void			ft_clear_env(t_env *env);
+void			ft_error(char *str, t_env *env);
+void			parse_params(t_env *env);
+void			parse_map();
+void			plane_calc(t_vector dir, t_vector *plane, float angle);
+void			new_pl_pos(t_env *env);
 
 
 #endif
