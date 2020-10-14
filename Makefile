@@ -41,7 +41,7 @@ FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address
 FLAGS		=	-Wall -Wextra -Werror
 OBJS		=	$(SRCS:.c=.o)
 
-CC			=	@gcc
+CC			=	@clang
 
 RM			=	@rm -f
 

@@ -29,7 +29,6 @@ void	ft_clear_conf(t_conf *conf)
 {
 	if (conf)
 	{
-
 		if (conf->file)
 			free(conf->file);
 		if (conf->path_no)

@@ -32,8 +32,12 @@
 
 typedef struct	s_vector
 {
-	float x;
-	float y;
+	float	x;
+	float	y;
+	float	coef;
+	float	intercept;
+	float	posX;
+	float	posY;
 }				t_vector;
 
 typedef struct	s_data
@@ -46,6 +50,27 @@ typedef struct	s_data
 	int		W;
 	int		H;
 }				t_data;
+
+typedef struct	s_sprite
+{
+	t_data		tex;
+	t_vector	pos;
+	t_vector	vector;
+	t_vector	hit_line;
+	float		hit_posX;
+	float		hit_posY;
+	float		dist;
+	float		pdist;
+	int			scaledH;
+	int			top;
+	int			bot;
+	float		hitX;
+	float		texPos;
+	float		ratio;
+	int			texX;
+	int			texY;
+	int			ok;
+}				t_sprite;
 
 typedef struct	s_conf
 {
@@ -78,6 +103,7 @@ typedef struct	s_map
 	t_vector	dir;
 	t_vector	pos;
 	t_vector	plane;
+	t_vector	inter;
 	float		cam_ratio;
 	t_vector	ray;
 	float		nextX;
@@ -100,6 +126,7 @@ typedef struct	s_rndr
 	float			wallX;
 	float			ratio;
 	t_data			*tex;
+//	t_sprite		*sprite;
 	float			texPosX;
 	int				texX;
 	int				texY;
@@ -107,20 +134,21 @@ typedef struct	s_rndr
 
 typedef struct	s_env
 {
-	t_conf	*conf;
-	t_map	*map;
-	t_rndr 	*rndr;
-	t_data	img;
-	t_data	tex[4];
-	t_data	sp;
-	void	*mlx;
-	void	*win;
-	int		left;
-	int		right;
-	int		up;
-	int		down;
-	int		strafe_left;
-	int		strafe_right;
+	t_conf		*conf;
+	t_map		*map;
+	t_rndr 		*rndr;
+	t_data		img;
+	t_data		tex[4];
+	t_sprite	sp;
+	void		*mlx;
+	void		*win;
+	int			left;
+	int			right;
+	int			up;
+	int			down;
+	int			strafe_left;
+	int			strafe_right;
+	int			sprite;
 }				t_env;
 
 void			rotation(t_vector *vector, float angle);
@@ -143,7 +171,7 @@ void			gap_calc(t_env *env);
 void			mapXY_calc(t_map *map);
 void			sign_calc(t_map *map);
 void			next_calc(t_env *env);
-void			wall_dist_calc(t_env *env);
+void			wall_dist_calc(t_env *env, int i);
 void			perp_wall_dist_calc(t_map *map);
 void			wall_calc(t_env *env);
 void			ratio_calc(t_env *env);
@@ -153,6 +181,23 @@ void			texPos_calc(t_env *env);
 void			texXY_calc(t_env *env);
 int				get_tex_color(t_env *env);
 void			fill_stripe(t_env *env, int i);
+
+void			sprite_pos_calc(t_env *env);
+void			sprite_dist_calc(t_env *env);
+void			sprite_scaled_height_calc(t_env *env);
+void			sprite_limits_calc(t_env *env);
+void			hit_line_calc(t_env *env);
+void			intersection_calc(t_env *env);
+void			set_hit(t_env *env);
+void			sprite_hit_calc(t_env *env);
+void			sprite_ratio_calc(t_env *env);
+void			sprite_texPos_calc(t_env *env);
+void			sprite_texXY_calc(t_env *env);
+void			sprite_calc(t_env *env, int i);
+int				get_sprite_color(t_env *env);
+void			sprite_fill_stripe(t_env *env, int i);
+
+
 
 void			init_dir(t_env *env);
 void			init_pos(t_env *env);

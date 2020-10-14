@@ -18,6 +18,10 @@ void	ray_calc(t_env *env)
 {
 	env->map->ray.x = env->map->dir.x + env->map->plane.x * env->map->cam_ratio;
 	env->map->ray.y = env->map->dir.y + env->map->plane.y * env->map->cam_ratio;
+	env->map->ray.posX = env->map->pos.x;
+	env->map->ray.posY = env->map->pos.y;
+	env->map->ray.coef = env->map->ray.y / env->map->ray.x;
+	env->map->ray.intercept = env->map->pos.y - env->map->ray.coef * env->map->pos.x;
 }
 
 void	gap_calc(t_env *env)

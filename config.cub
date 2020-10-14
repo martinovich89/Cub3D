@@ -1,13 +1,13 @@
 R 800 600
 
-NO ./textures/tex_no.txt
-SO ./textures/tex_so.txt
-WE ./textures/tex_we.txt
-EA ./textures/tex_ea.txt
+NO ./textures/wall_1.xpm
+SO ./textures/wall_2.xpm
+WE ./textures/purplestone.xpm
+EA ./textures/bluestone.xpm
 
 S ./textures/tex_sp.txt
-F 95,105,115
-C 100,85,90
+F 90,95,100
+C 90,75,80
 
        11111
        10001111

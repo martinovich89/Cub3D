@@ -9,7 +9,7 @@ void	map_all_calc(t_env *env, int i)
 	mapXY_calc(env->map);
 	sign_calc(env->map);
 	next_calc(env);
-	wall_dist_calc(env);
+	wall_dist_calc(env, i);
 	perp_wall_dist_calc(env->map);
 	wall_calc(env);
 	pick_texture(env);

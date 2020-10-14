@@ -57,6 +57,24 @@ int		key_release(int keycode, t_env *env)
 	return (0);
 }
 
+void			reset_sheet(t_env *env)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < env->conf->res_h)
+	{
+		j = 0;
+		while (j < env->conf->res_w)
+		{
+			env->rndr->sheet[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+}
+
 void            draw_image(t_data *data, unsigned int **tab)
 {
     int x;
@@ -77,6 +95,7 @@ void            draw_image(t_data *data, unsigned int **tab)
 
 int		render_next_frame(t_env *env)
 {
+	reset_sheet(env);
 	ray_casting(env);
 	draw_image(&env->img, env->rndr->sheet);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
@@ -249,6 +268,7 @@ void	init_env(t_env *env)
 	env->down = 0;
 	env->strafe_left = 0;
 	env->strafe_right = 0;
+	env->sprite = 0;
 }
 
 void	init_textures(t_env *env)
@@ -283,6 +303,12 @@ void	init_mlx(t_env *env)
 	, &env->img.bpp, &env->img.line_length, &env->img.endian)))
 		ft_error("failed to allocate img.addr\n", env);
 	init_textures(env);
+	if (!(env->sp.tex.img = mlx_xpm_file_to_image(env->mlx
+	, env->conf->path_sp, &env->sp.tex.W, &env->sp.tex.H)))
+		ft_error("failed to allocate sp.tex.img\n", env);
+	if (!(env->sp.tex.addr = mlx_get_data_addr(env->sp.tex.img
+	, &env->sp.tex.bpp, &env->sp.tex.line_length, &env->sp.tex.endian)))
+		ft_error("failed to allocate sp.tex.addr\n", env);
 	if (!(env->rndr->sheet
 	= ft_build_uint_tab(env->conf->res_w, env->conf->res_h)))
 		ft_error("failed to allocate rndr->sheet\n", env);
