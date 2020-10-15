@@ -73,8 +73,8 @@ void	sprite_fill_stripe(t_env *env, int i)
 			env->rndr->sheet[j][i] = color;
 		env->sp.texPos += env->sp.ratio;
 		env->sp.texY = (int)env->sp.texPos;
-		if (env->sp.texY >= env->sp.scaledH)
-			env->sp.texY = env->sp.scaledH - 1;
+		if (env->sp.texY >= env->sp.tex.H)
+			env->sp.texY = env->sp.tex.H - 1;
 		j++;
 	}
 }

@@ -57,8 +57,7 @@ void	sprite_pos_calc(t_env *env)
 
 void	perp_sprite_dist_calc(t_env *env)
 {
-// NE PAS EFFACER !!!!!!!!!!!!!!
-/*	float	xR;
+	float	xR;
 	float	yR;
 
 	env->map->plane.posX = env->map->pos.x + env->map->dir.x;
@@ -71,12 +70,13 @@ void	perp_sprite_dist_calc(t_env *env)
 	env->sp.vector.intercept = env->sp.vector.posY - env->sp.vector.coef * env->sp.vector.posX;
 	xR = (env->map->plane.intercept - env->sp.vector.intercept) / (env->sp.vector.coef - env->map->plane.coef);
 	yR = env->sp.vector.coef * xR + env->sp.vector.intercept;
-	env->sp.pdist = env->sp.dist / sqrt(pow(xR - env->map->pos.x, 2) + pow(yR - env->map->pos.y, 2));*/
-	env->sp.pdist = env->sp.dist / sqrt(pow(env->map->ray.x, 2) + pow(env->map->ray.y, 2));
+	env->sp.pdist = env->sp.dist / sqrt(pow(xR - env->map->pos.x, 2) + pow(yR - env->map->pos.y, 2));
 }
 
 void	sprite_dist_calc(t_env *env)
 {
+	env->sp.vector.x = env->sp.pos.x - env->map->pos.x;
+	env->sp.vector.y = env->sp.pos.y - env->map->pos.y;
 	env->sp.dist = sqrtf(powf(env->sp.pos.x - env->map->pos.x, 2.0F)
 	+ powf(env->sp.pos.y - env->map->pos.y, 2.0F));
 	perp_sprite_dist_calc(env);
@@ -157,8 +157,6 @@ void	set_hit(t_env *env)
 
 void	sprite_hit_calc(t_env *env)
 {
-	env->sp.vector.x = env->sp.pos.x - env->map->pos.x;
-	env->sp.vector.y = env->sp.pos.y - env->map->pos.y;
 	hit_line_calc(env);
 	intersection_calc(env);
 	set_hit(env);
@@ -183,19 +181,12 @@ void	sprite_texXY_calc(t_env *env)
 void	sprite_calc(t_env *env, int i)
 {
 	sprite_pos_calc(env);
-//	printf("sprite.pos.x = %f, env->sp.pos.x = %f\n", env->sp.pos.x, env->sp.pos.y);
 	sprite_dist_calc(env);
-//	printf("env->sp.dist = %f\n", env->sp.dist);
 	sprite_scaled_height_calc(env);
-//	printf("scaled_height = %i\n", env->sp.scaledH);
 	sprite_limits_calc(env);
-//	printf("sprite_top = %i, sprite_bot = %i\n", env->sp.top, env->sp.bot);
 	sprite_hit_calc(env);
-//	printf("hitX = %f\n", env->sp.hitX);
 	sprite_ratio_calc(env);
-//	printf("ratio = %f\n", env->sp.ratio);
 	sprite_texPos_calc(env);
-//	printf("texpos = %f\n", env->sp.texPos);
 	sprite_texXY_calc(env);
 	if (env->sp.ok == 1)
 		sprite_fill_stripe(env, i);
