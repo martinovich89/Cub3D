@@ -40,6 +40,9 @@ SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address
 FLAGS		=	-Wall -Wextra -Werror
 OBJS		=	$(SRCS:.c=.o)
+HEADERS		= 	includes/cub.h \
+				includes/get_next_line.h \
+				includes/libft.h \
 
 CC			=	@clang
 
@@ -50,10 +53,10 @@ all:	$(NAME)
 $(NAME):$(OBJS)
 		@make -C libft
 		@make -C libs/mlx
-		$(CC) $(FLAGSD) $(INC) -o $(NAME) $(OBJS) $(LIB)
-		@echo "$(NAME) created"
+		$(CC) $(FLAGSD) $(INC) -o $@ $(OBJS) $(LIB)
+		@echo "$@ created"
 
-%.o: %.c
+%.o: %.c $(HEADERS)
 	$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 clean:

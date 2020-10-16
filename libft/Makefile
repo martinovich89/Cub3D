@@ -63,6 +63,7 @@ SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 FLAGS		= -Wall -Wextra -Werror
 INC			= -I./includes
+HEADERS		= includes/libft.h
 
 OBJS 		= $(SRCS:.c=.o)
 
@@ -70,7 +71,7 @@ CC			= @gcc
 
 RM			= @rm -f
 
-%.o: %.c
+%.o: %.c $(HEADERS)
 	$(CC) $(FLAGS) $(INC) -c $< -o $@
 
 all:	$(NAME)
