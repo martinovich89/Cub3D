@@ -156,7 +156,6 @@ void			new_pl_pos(t_env *env);
 void			new_pl_dir(t_env *env, int sign);
 void			ray_casting(t_env *env);
 unsigned int	**ft_build_uint_tab(int w, int h);
-void			init_mlx(t_env *env);
 void			ft_clear_env(t_env *env);
 void			ft_error(char *str, t_env *env);
 void			parse_params(t_env *env);
@@ -199,11 +198,19 @@ void			sprite_fill_stripe(t_env *env, int i);
 
 
 
+void			init_mlx(t_env *env);
 void			init_dir(t_env *env);
 void			init_pos(t_env *env);
 void			init_fov(t_env *env);
 void			init_plane(t_env *env);
 void			init_player(t_env *env);
+void			init_textures(t_env *env);
+void			init_env(t_env *env);
+void			init_img(t_data *img);
+void			init_rndr(t_rndr *rndr);
+void			init_map(t_map *map);
+void			init_conf(t_conf *conf);
+
 
 int				is_valid_path(char *str);
 void			set_tex_path(t_env *env, char *path, int nb);
@@ -218,5 +225,13 @@ void			parse_res(t_env *env, char *line);
 void			check_map_line(t_env *env, char *line);
 int				is_valid_char(t_conf *conf, size_t i, size_t j);
 int				is_valid_map(t_conf *conf);
+
+int				key_release(int keycode, t_env *env);
+int				key_press(int keycode, t_env *env);
+int				close_window(int keycode, t_env *env);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			reset_sheet(t_env *env);
+void			draw_image(t_data *data, unsigned int **tab);
+int				render_next_frame(t_env *env);
 
 #endif

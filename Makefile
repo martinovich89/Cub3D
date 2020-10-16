@@ -10,6 +10,8 @@ PARSING		=	parsing/parse_params.c \
 				parsing/parse_res.c \
 				parsing/map_checks.c \
 
+MLX_MANAG	=	mlx_management/mlx.c \
+
 RAY-CASTING =	ray-casting/ray_casting.c \
 				ray-casting/rc_utils_1.c \
 				ray-casting/ray_casting_init.c \
@@ -23,11 +25,13 @@ GNL			=	GNL/get_next_line.c \
 				GNL/get_next_line_utils.c \
 
 UTILS		=	utils/clear.c \
+				utils/init.c \
 
 ERRORS		=	errors/ft_error.c \
 
 SRC_PATH	=	./srcs/
 SRC			=	$(PARSING) \
+				$(MLX_MANAG) \
 				$(RAY-CASTING) \
 				$(RENDERING) \
 				$(GNL) \
