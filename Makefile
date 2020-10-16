@@ -53,7 +53,7 @@ all:	$(NAME)
 $(NAME):$(OBJS)
 		@make -C libft
 		@make -C libs/mlx
-		$(CC) $(FLAGSD) $(INC) -o $@ $(OBJS) $(LIB)
+		$(CC) $(FLAGSD) $(INC) -o $@ $^ $(LIB)
 		@echo "$@ created"
 
 %.o: %.c $(HEADERS)
