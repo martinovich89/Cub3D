@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 23:48:34 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:48:35 by martin           ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "mlx_int.h"
 
-void	ft_puterr(char *str)
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	write(2, str, ft_strlen(str));
-}
-
-void	ft_error(char *str, t_env *env)
-{
-	write(2, "error\n", 6);
-	ft_puterr(str);
-	ft_clear_env(env);
-	exit(1);
+	XCloseDisplay(xvar->display);
 }

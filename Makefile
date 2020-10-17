@@ -21,6 +21,7 @@ RENDERING	=	rendering/rndr_calcs_1.c \
 				rendering/rndr_sprite_calcs_1.c \
 				rendering/rndr_sprite_calcs_2.c \
 				rendering/rndr_sprite_calcs_3.c \
+				rendering/gogole.c \
 
 GNL			=	GNL/get_next_line.c \
 				GNL/get_next_line_utils.c \
@@ -49,7 +50,7 @@ SRC			=	$(PARSING) \
 
 SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 
-FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address
+FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address -g3
 FLAGS		=	-Wall -Wextra -Werror
 OBJS		=	$(SRCS:.c=.o)
 

@@ -26,25 +26,13 @@ void	hit_line_calc(t_env *env)
 void	intersection_calc(t_env *env)
 {
 	if ((env->map->ray.coef - env->sp.hit_line.coef) == 0.0001 && (env->map->ray.coef - env->sp.hit_line.coef) >= -0.0001)
-	{
-		env->sp.hit_posX = env->sp.pos.x;
-		env->sp.hit_posY = env->sp.pos.y;
-	}
+		gogole_un(env);
 	else if (env->sp.hit_line.coef <= 0.0001 && env->sp.hit_line.coef >= -0.0001)
-	{
-		env->sp.hit_posX = (env->sp.hit_line.intercept - env->map->ray.intercept) / (env->map->ray.coef - env->sp.hit_line.coef);
-		env->sp.hit_posY = env->sp.pos.y;
-	}
+		gogole_deux(env);
 	else if (1 / env->sp.hit_line.coef <= 0.0001 && 1 / env->sp.hit_line.coef >= -0.0001)
-	{
-		env->sp.hit_posX = env->sp.pos.x;
-		env->sp.hit_posY = env->map->ray.coef * env->sp.hit_posX + env->map->ray.intercept;
-	}
+		gogole_trois(env);
 	else
-	{
-		env->sp.hit_posX = (env->sp.hit_line.intercept - env->map->ray.intercept) / (env->map->ray.coef - env->sp.hit_line.coef);
-		env->sp.hit_posY = env->map->ray.coef * env->sp.hit_posX + env->map->ray.intercept;
-	}
+		gogole_quatre(env);
 }
 
 void	set_inter(t_env *env)

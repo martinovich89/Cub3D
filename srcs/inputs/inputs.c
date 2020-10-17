@@ -14,8 +14,8 @@
 
 int		close_window(int keycode, t_env *env)
 {
-	(void)env;
-	ft_clear_env(env);
+	if (keycode == 65307)
+		ft_clear_env(env);
 	exit(0);
 	return (keycode);
 }
@@ -41,8 +41,7 @@ int		key_release(int keycode, t_env *env)
 {
 	if (keycode == 65307)
 	{
-		ft_clear_env(env);
-		exit(0);
+		close_window(keycode, env);
 	}
 	if (keycode == 65361)
 		env->left = 0;

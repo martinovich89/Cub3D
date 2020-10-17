@@ -210,6 +210,10 @@ void			sprite_texxy_calc(t_env *env);
 void			sprite_calc(t_env *env, int i);
 int				get_sprite_color(t_env *env);
 void			sprite_fill_stripe(t_env *env, int i);
+void			gogole_un(t_env *env);
+void			gogole_deux(t_env *env);
+void			gogole_trois(t_env *env);
+void			gogole_quatre(t_env *env);
 
 int				close_window(int keycode, t_env *env);
 int				key_press(int keycode, t_env *env);
