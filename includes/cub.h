@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:36:00 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:36:39 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_H
 #define CUB_H
 
@@ -9,18 +21,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
-# ifndef MAX_RES_W
-#  define MAX_RES_W 1920
-# endif
-
-# ifndef MAX_RES_H
-#  define MAX_RES_H 1080
-# endif
-
-# ifndef CONF_PATH
-#  define CONF_PATH "/home/martin/Desktop/42-projects/Cub3D/conf.cub"
-# endif
+#include <sys/stat.h>
+#include <errno.h>
 
 # ifndef FOV
 #  define FOV 90
@@ -57,6 +59,7 @@ typedef struct	s_sprite
 	t_vector	pos;
 	t_vector	vector;
 	t_vector	hit_line;
+	t_vector	hit;
 	float		hit_posX;
 	float		hit_posY;
 	float		dist;
@@ -99,7 +102,6 @@ typedef struct	s_map
 	int			x;
 	int			y;
 	float		fov;
-	char		**map_tab;
 	t_vector	dir;
 	t_vector	pos;
 	t_vector	plane;
@@ -126,7 +128,6 @@ typedef struct	s_rndr
 	float			wallX;
 	float			ratio;
 	t_data			*tex;
-//	t_sprite		*sprite;
 	float			texPosX;
 	int				texX;
 	int				texY;
@@ -151,11 +152,22 @@ typedef struct	s_env
 	int			sprite;
 }				t_env;
 
+typedef struct		s_bmp
+{
+	int				im_size;
+	int				zero;
+	int				data_offset;
+	int				size_dib;
+	short int		planes;
+	short int		bpp;
+}					t_bmp;
+
 void			rotation(t_vector *vector, float angle);
 void			new_pl_pos(t_env *env);
 void			new_pl_dir(t_env *env, int sign);
 void			ray_casting(t_env *env);
 unsigned int	**ft_build_uint_tab(int w, int h);
+void			init_mlx(t_env *env);
 void			ft_clear_env(t_env *env);
 void			ft_error(char *str, t_env *env);
 void			parse_params(t_env *env);
@@ -163,26 +175,29 @@ void			parse_map(t_env *env);
 void			translation(t_env *env, int nb);
 float			rad_conv(float angle);
 
+void			set_dir(t_vector *vector, float x, float y);
+void			set_pos(t_vector *vector, float x, float y);
 void			plane_calc(t_vector dir, t_vector *plane, float angle);
 void			cam_calc(t_env *env, int nb);
 void			ray_calc(t_env *env);
 void			gap_calc(t_env *env);
-void			mapXY_calc(t_map *map);
+void			mapxy_calc(t_map *map);
 void			sign_calc(t_map *map);
 void			next_calc(t_env *env);
 void			wall_dist_calc(t_env *env, int i);
 void			perp_wall_dist_calc(t_map *map);
 void			wall_calc(t_env *env);
 void			ratio_calc(t_env *env);
-void			wallX_calc(t_env *env);
+void			wallx_calc(t_env *env);
 void			pick_texture(t_env *env);
-void			texPos_calc(t_env *env);
-void			texXY_calc(t_env *env);
+void			texpos_calc(t_env *env);
+void			texxy_calc(t_env *env);
 int				get_tex_color(t_env *env);
 void			fill_stripe(t_env *env, int i);
 
 void			sprite_pos_calc(t_env *env);
 void			sprite_dist_calc(t_env *env);
+void			perp_sprite_dist_calc(t_env *env);
 void			sprite_scaled_height_calc(t_env *env);
 void			sprite_limits_calc(t_env *env);
 void			hit_line_calc(t_env *env);
@@ -190,27 +205,33 @@ void			intersection_calc(t_env *env);
 void			set_hit(t_env *env);
 void			sprite_hit_calc(t_env *env);
 void			sprite_ratio_calc(t_env *env);
-void			sprite_texPos_calc(t_env *env);
-void			sprite_texXY_calc(t_env *env);
+void			sprite_texpos_calc(t_env *env);
+void			sprite_texxy_calc(t_env *env);
 void			sprite_calc(t_env *env, int i);
 int				get_sprite_color(t_env *env);
 void			sprite_fill_stripe(t_env *env, int i);
 
+int				close_window(int keycode, t_env *env);
+int				key_press(int keycode, t_env *env);
+int				key_release(int keycode, t_env *env);
 
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			reset_sheet(t_env *env);
+void            draw_image(t_env *env, t_data *data, unsigned int **tab);
 
-void			init_mlx(t_env *env);
 void			init_dir(t_env *env);
 void			init_pos(t_env *env);
 void			init_fov(t_env *env);
 void			init_plane(t_env *env);
 void			init_player(t_env *env);
-void			init_textures(t_env *env);
-void			init_env(t_env *env);
-void			init_img(t_data *img);
-void			init_rndr(t_rndr *rndr);
-void			init_map(t_map *map);
 void			init_conf(t_conf *conf);
-
+void			init_img(t_data *img);
+void			init_textures(t_env *env);
+void			init_mlx(t_env *env);
+t_env			*env_alloc();
+void			rndr_alloc(t_env *env);
+void			map_alloc(t_env *env);
+void			conf_alloc(t_env *env);
 
 int				is_valid_path(char *str);
 void			set_tex_path(t_env *env, char *path, int nb);
@@ -218,20 +239,13 @@ void			parse_tex(t_env *env, char *line, int nb);
 void			set_colr(t_env *env, char *str, int nb);
 int				is_valid_colr(char *str);
 void			parse_color(t_env *env, char *line, int nb);
-void			set_res_h(t_env *env, int nb);
-void			set_res_w(t_env *env, int nb);
+void			set_res_wh(t_env *env, int x, int y);
 void			parse_res(t_env *env, char *line);
 
 void			check_map_line(t_env *env, char *line);
 int				is_valid_char(t_conf *conf, size_t i, size_t j);
 int				is_valid_map(t_conf *conf);
 
-int				key_release(int keycode, t_env *env);
-int				key_press(int keycode, t_env *env);
-int				close_window(int keycode, t_env *env);
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void			reset_sheet(t_env *env);
-void			draw_image(t_data *data, unsigned int **tab);
-int				render_next_frame(t_env *env);
+void			save(t_env *env);
 
 #endif

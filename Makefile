@@ -1,4 +1,4 @@
-NAME		=	cub3d
+NAME		=	cub3D
 
 LIB			=	-L./libft -lft -I/usr/local/include -L/usr/local/lib -lmlx -L/usr/include -lm -lbsd -lX11 -lXext
 INC			=	-I./includes
@@ -10,8 +10,6 @@ PARSING		=	parsing/parse_params.c \
 				parsing/parse_res.c \
 				parsing/map_checks.c \
 
-MLX_MANAG	=	mlx_management/mlx.c \
-
 RAY-CASTING =	ray-casting/ray_casting.c \
 				ray-casting/rc_utils_1.c \
 				ray-casting/ray_casting_init.c \
@@ -20,23 +18,33 @@ RAY-CASTING =	ray-casting/ray_casting.c \
 
 RENDERING	=	rendering/rndr_calcs_1.c \
 				rendering/rndr_calcs_2.c \
+				rendering/rndr_sprite_calcs_1.c \
+				rendering/rndr_sprite_calcs_2.c \
+				rendering/rndr_sprite_calcs_3.c \
 
 GNL			=	GNL/get_next_line.c \
 				GNL/get_next_line_utils.c \
 
 UTILS		=	utils/clear.c \
-				utils/init.c \
+				utils/save.c \
+				utils/screen.c \
 
 ERRORS		=	errors/ft_error.c \
 
+INPUTS		=	inputs/inputs.c \
+
+INITS		=	inits/allocs.c \
+				inits/inits.c \
+
 SRC_PATH	=	./srcs/
 SRC			=	$(PARSING) \
-				$(MLX_MANAG) \
 				$(RAY-CASTING) \
 				$(RENDERING) \
 				$(GNL) \
 				$(UTILS) \
 				$(ERRORS) \
+				$(INPUTS) \
+				$(INITS) \
 				main.c \
 
 SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
@@ -44,9 +52,6 @@ SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address
 FLAGS		=	-Wall -Wextra -Werror
 OBJS		=	$(SRCS:.c=.o)
-HEADERS		= 	includes/cub.h \
-				includes/get_next_line.h \
-				includes/libft.h \
 
 CC			=	@clang
 
@@ -57,10 +62,10 @@ all:	$(NAME)
 $(NAME):$(OBJS)
 		@make -C libft
 		@make -C libs/mlx
-		$(CC) $(FLAGSD) $(INC) -o $@ $^ $(LIB)
-		@echo "$@ created"
+		$(CC) $(FLAGSD) $(INC) -o $(NAME) $(OBJS) $(LIB)
+		@echo "$(NAME) created"
 
-%.o: %.c $(HEADERS)
+%.o: %.c
 	$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 clean:

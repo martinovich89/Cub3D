@@ -33,21 +33,16 @@ static int	ft_tab_len(char const *s, char c)
 	return (count);
 }
 
-char		**ft_split(char const *s, char c)
+static int	fill_split(char **tab, char const *s, char c, int len)
 {
-	char	**tab;
-	int		i;
-	int		j;
-	int		flag;
+	int i;
+	int j;
+	int flag;
 
-	flag = 0;
-	if (!s)
-		return (NULL);
-	if (!(tab = malloc(sizeof(char *) * (ft_tab_len(s, c) + 1))))
-		return (NULL);
 	i = 0;
 	j = 0;
-	while (i < ft_tab_len(s, c))
+	flag = 0;
+	while (i < len)
 	{
 		while (s[j] == c && s[j])
 			j++;
@@ -55,9 +50,26 @@ char		**ft_split(char const *s, char c)
 			flag = j;
 		while (s[j] != c && s[j])
 			j++;
-		tab[i] = ft_strndup(s + flag, (j - flag));
+		if (!(tab[i] = ft_strndup(s + flag, (j - flag))))
+			return (1);
 		i++;
 	}
-	tab[ft_tab_len(s, c)] = NULL;
+	return (0);
+}
+
+char		**ft_split(char const *s, char c)
+{
+	char	**tab;
+	int		len;
+
+	if (!s)
+		return (NULL);
+	len = ft_tab_len(s, c);
+	if (!(tab = malloc(sizeof(char *) * (len + 1))))
+		return (NULL);
+	ft_memset(tab, 0, sizeof(char *) * len);
+	if (fill_split(tab, s, c, len))
+		ft_tabdel(tab);
+	tab[len] = NULL;
 	return (tab);
 }

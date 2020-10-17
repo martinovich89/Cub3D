@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:50:00 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:50:02 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void	set_w_h(t_env *env)
@@ -28,11 +40,12 @@ void	set_w_h(t_env *env)
 
 char	**ft_build_tab(int xmax, int ymax, t_env *env)
 {
-	char **tab;
-	int i;
+	char	**tab;
+	int		i;
 
 	if (!(tab = (char **)malloc(sizeof(*tab) * (ymax + 1))))
 		ft_error("ram allocation error", env);
+	ft_memset(tab, 0, sizeof(unsigned int *) * ymax + 1);
 	i = 0;
 	while (i < ymax)
 	{
@@ -46,9 +59,9 @@ char	**ft_build_tab(int xmax, int ymax, t_env *env)
 
 void	fill_tab(t_env *env)
 {
-	char *line;
-	int fd;
-	int i;
+	char	*line;
+	int		fd;
+	int		i;
 
 	fd = open(env->conf->file, O_RDONLY);
 	i = 0;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_checks.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:49:43 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:49:44 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void	check_map_line(t_env *env, char *line)
@@ -23,7 +35,7 @@ int		is_valid_char(t_conf *conf, size_t i, size_t j)
 		is_charset(conf->map[i][j], "02NEWS") &&
 		(conf->map[i + 1][j] == ' ' || conf->map[i][j + 1] == ' ' ||
 		conf->map[i - 1][j] == ' ' || conf->map[i][j - 1] == ' '))
-			return (0);
+		return (0);
 	return (1);
 }
 

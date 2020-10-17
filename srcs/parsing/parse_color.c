@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_color.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:49:53 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:49:54 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void	set_colr(t_env *env, char *str, int nb)
 {
 	char	**tab;
 
+	tab = NULL;
 	if (!(tab = ft_split(str, ',')))
 		ft_error("ram allocation error\n", env);
 	if (nb == 1)
@@ -51,6 +64,7 @@ void	parse_color(t_env *env, char *line, int nb)
 {
 	char	**tab;
 
+	tab = NULL;
 	if (!(tab = ft_split(line, ' ')))
 		ft_error("erreur d'allocation mémoire\n", env);
 	if (ft_tablen(tab) != 2 || !is_valid_colr(tab[1]))

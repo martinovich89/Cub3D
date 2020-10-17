@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:50:52 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:50:54 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void	map_all_calc(t_env *env, int i)
@@ -6,7 +18,7 @@ void	map_all_calc(t_env *env, int i)
 	cam_calc(env, i);
 	ray_calc(env);
 	gap_calc(env);
-	mapXY_calc(env->map);
+	mapxy_calc(env->map);
 	sign_calc(env->map);
 	next_calc(env);
 	wall_dist_calc(env, i);
@@ -14,9 +26,9 @@ void	map_all_calc(t_env *env, int i)
 	wall_calc(env);
 	pick_texture(env);
 	ratio_calc(env);
-	wallX_calc(env);
-	texPos_calc(env);
-	texXY_calc(env);
+	wallx_calc(env);
+	texpos_calc(env);
+	texxy_calc(env);
 }
 
 void	apply_moves(t_env *env)

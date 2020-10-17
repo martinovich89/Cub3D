@@ -1,9 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:48:34 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:48:35 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-void    ft_error(char *str, t_env *env)
+void	ft_puterr(char *str)
 {
-    (void)env;
-//	ft_clear_env(env);
-    ft_putstr(str);
-    exit(1);
+	write(2, str, ft_strlen(str));
+}
+
+void	ft_error(char *str, t_env *env)
+{
+	write(1, "lol\n", 1);
+	ft_puterr(str);
+	ft_clear_env(env);
+	exit(1);
 }

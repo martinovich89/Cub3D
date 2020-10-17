@@ -1,19 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_res.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:50:18 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:50:20 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-void	set_res_h(t_env *env, int nb)
+void	set_res_wh(t_env *env, int x, int y)
 {
-	if (nb > MAX_RES_H)
-		env->conf->res_h = MAX_RES_H;
-	if ((nb <= MAX_RES_H) && nb >= 300)
-		env->conf->res_h = nb;
-}
+	int w;
+	int h;
 
-void	set_res_w(t_env *env, int nb)
-{
-	if (nb > MAX_RES_W)
-		env->conf->res_w = MAX_RES_W;
-	if ((nb <= MAX_RES_W) && nb >= 300)
-		env->conf->res_w = nb;
+	if (!(env->mlx = mlx_init()))
+		ft_error("failed to allocate mlx ptr\n", env);
+	mlx_get_screen_size(env->mlx, &w, &h);
+	if (x > w)
+		env->conf->res_w = w;
+	if (x <= w)
+		env->conf->res_w = x;
+	if (y > h)
+		env->conf->res_h = h;
+	if (y <= h)
+		env->conf->res_h = y;
+	free(env->mlx);
+	env->mlx = NULL;
 }
 
 void	parse_res(t_env *env, char *line)
@@ -27,8 +43,7 @@ void	parse_res(t_env *env, char *line)
 		ft_tabdel(tab);
 		ft_error("invalid res line\n", env);
 	}
-	set_res_w(env, ft_atoi(tab[1]));
-	set_res_h(env, ft_atoi(tab[2]));
+	set_res_wh(env, ft_atoi(tab[1]), ft_atoi(tab[2]));
 	if (tab)
 		ft_tabdel(tab);
 }

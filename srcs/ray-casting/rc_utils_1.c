@@ -1,8 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rc_utils_1.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:51:29 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:51:30 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
+
+void	set_dir(t_vector *vector, float x, float y)
+{
+	vector->x = x;
+	vector->y = y;
+}
+
+void	set_pos(t_vector *vector, float x, float y)
+{
+	vector->posX = x;
+	vector->posY = y;
+}
 
 float	rad_conv(float angle)
 {
 	float ret;
+
 	ret = angle * M_PI / 180;
 	return (ret);
 }

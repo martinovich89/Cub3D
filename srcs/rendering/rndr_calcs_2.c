@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rndr_calcs_2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/16 23:51:56 by martin            #+#    #+#             */
+/*   Updated: 2020/10/16 23:51:57 by martin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-void	texXY_calc(t_env *env)
+void	texxy_calc(t_env *env)
 {
 	env->rndr->texX = (int)(env->rndr->wallX * (float)env->rndr->tex->W);
 	env->rndr->texY = (int)env->rndr->texPosX;
