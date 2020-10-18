@@ -14,9 +14,12 @@
 
 int		is_valid_path(char *str)
 {
-	int	fd;
-
-	if ((fd = open(str, O_RDONLY)) < 0)
+	int		fd;
+	int		ret;
+	char	buffer[1];
+	
+	fd = open(str, O_RDONLY);
+	if ((ret = read(fd, buffer, 1)) < 0)
 		return (0);
 	close(fd);
 	return (1);
@@ -46,9 +49,13 @@ void	parse_tex(t_env *env, char *line, int nb)
 	char	**tab;
 
 	if (!(tab = ft_split(line, ' ')))
+	{
+		ft_strdel(line);
 		ft_error("ram allocation error\n", env);
+	}
 	if (ft_tablen(tab) != 2 || !is_valid_path(tab[1]))
 	{
+		ft_strdel(line);
 		ft_tabdel(tab);
 		ft_error("invalid texture line\n", env);
 	}

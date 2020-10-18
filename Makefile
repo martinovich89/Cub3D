@@ -50,7 +50,7 @@ SRC			=	$(PARSING) \
 
 SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 
-FLAGSD		=	-Wall -Wextra -Werror -fsanitize=address -g3
+FLAGSD		=	-Wall -Wextra -Werror -fsanitize=leak -g3
 FLAGS		=	-Wall -Wextra -Werror
 OBJS		=	$(SRCS:.c=.o)
 

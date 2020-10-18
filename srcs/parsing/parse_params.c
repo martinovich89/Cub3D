@@ -33,7 +33,10 @@ int		cmp_and_parse(t_env *env, char *line)
 		else if (!ft_strncmp(line, "F ", 2))
 			parse_color(env, line, 2);
 		else
+		{
+			ft_strdel(line); // ajout
 			ft_error("invalid line in .cub file\n", env);
+		}
 		return (1);
 	}
 	return (0);
