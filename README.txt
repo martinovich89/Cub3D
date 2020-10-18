@@ -1,14 +1,14 @@
-SUJET :
+***    -- SUJET --    ***
 Cub3D est un projet visant à simuler un parcours de labyrinthe en perspective, donnant l'impression de 3D grâce à une technique appelée ray-casting, tout en utilisant la mini-libX.
 Ce sujet puise son essence dans le célèbre jeu-vidéo Wolfenstein3D.
 
-RENDU :
+***    -- RENDU --    ***
 - Makefile : all, clean, fclean, re, bonus
 - Un fichier conf.cub contiendra les infos formatées* de configuration de lancement et de map.
 - Le programme doit rejeter toute configuration erronée.
 - Fonctions autorisées : open, close, read, write, malloc, free, perror, strerror, exit, ainsi que toutes les fonctions de la lib math, de la mlx, et de la libft.
 
-CONSIGNES :
+***    -- CONSIGNES --    ***
 - La gestion des fenêtres doit être parfaite : gestion de minimalisation, passage à une autre fenêtre etc.
 - Les textures des murs du labytinthe doivent être différentes selon l'orientation Nord Est West Sud.
 - Le programme doit pouvoir afficher un sprite.
@@ -18,7 +18,7 @@ CONSIGNES :
 - Appuyer sur ESC doit faire quitter proprement le programme et fermer la fenêtre.
 - Idem lorsqu'on appuie sur la croix rouge en bordure de fenêtre.
 
-*FORMAT :
+***   -- FORMAT --   ***
 - Exemple de fichier de conf :
 +-----------------------------------+
 | R 1920 1080                       |
@@ -57,6 +57,13 @@ CONSIGNES :
 
 //////////////////////////////////////////////////////////////////////////////////
 
-espaces.
-res min message.
-empty line end file.
+***    -- REMARQUES --    ***
+
+Espaces permis uniquement entre informations dans les éléments (pas avant, pas apres).
+Lignes vides permises uniquement entre les éléments (pas d'espace dedans.)
+Une ligne vide sera permise à la fin du fichier, afin de faciliter l'édition vim en correction.
+Afin de garantir une bonne expérience utilisateur, la résolution minimale autorisée est 300 x 300.
+Un rgb est compté comme une seule et entière information. Nul espace autorisé entre r, g et b.
+L'utilisation de la fonction exit rend le free des still reachable optionel dans ce projet.
+A cause de la remarque précédente, l'utilisation de valgrind n'est pas recommandée dans ce projet.
+Noter que l'utilisation de la transparence est rendue impossible pour les sprites (v1.0).
