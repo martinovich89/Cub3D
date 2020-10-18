@@ -68,7 +68,7 @@ void	check_fd(char **argv, t_env *env)
 	line = NULL;
 	fd = 0;
 	fd = open(argv[1], O_RDONLY);
-	if ((ret = read(fd, buffer, 1)) < 0)
+	if (fd < 0 || (ret = read(fd, buffer, 1)) < 0)
 		ft_error("The file does not exist\n", env);
 	if ((line = (ft_strrchr(argv[1], '.'))) != NULL)
 	{

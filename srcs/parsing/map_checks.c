@@ -15,7 +15,7 @@
 void	check_map_line(t_env *env, char *line)
 {
 	if (!is_charset_str(line, "NEWS 012") || !is_in_str(line, '1'))
-		ft_error("invalid map line (map must be last element)", env);
+		ft_error("invalid map line (map must be last element\n)", env);
 	if (ft_strlen(line) > (size_t)env->conf->map_w)
 		env->conf->map_w = ft_strlen(line);
 	env->conf->map_h++;

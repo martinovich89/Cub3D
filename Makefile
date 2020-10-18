@@ -1,7 +1,8 @@
 NAME		=	cub3D
 
-LIB			=	-L./libft -lft -I/usr/local/include -L/usr/local/lib -lmlx -L/usr/include -lm -lbsd -lX11 -lXext
-INC			=	-I./includes
+LIB			=	-L./libft -lft -L/libs/mlx -lm -lbsd -lX11 -lXext ./libs/mlx/libmlx.a
+
+INC			=	-I./includes -I./libs/mlx
 
 PARSING		=	parsing/parse_params.c \
 				parsing/parse_map.c \
@@ -38,6 +39,7 @@ INITS		=	inits/allocs.c \
 				inits/inits.c \
 
 SRC_PATH	=	./srcs/
+
 SRC			=	$(PARSING) \
 				$(RAY-CASTING) \
 				$(RENDERING) \
@@ -51,7 +53,9 @@ SRC			=	$(PARSING) \
 SRCS		=	$(addprefix $(SRC_PATH), $(SRC))
 
 FLAGSD		=	-Wall -Wextra -Werror -fsanitize=leak -g3
+
 FLAGS		=	-Wall -Wextra -Werror
+
 OBJS		=	$(SRCS:.c=.o)
 
 CC			=	@clang
@@ -59,7 +63,6 @@ CC			=	@clang
 RM			=	@rm -f
 
 all:	$(NAME)
-
 $(NAME):$(OBJS)
 		@make -C libft
 		@make -C libs/mlx

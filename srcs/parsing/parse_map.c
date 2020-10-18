@@ -22,7 +22,7 @@ void	set_w_h(t_env *env)
 		free(line);
 	if (!is_charset_str(line, " 1") || !is_in_str(line, '1'))
 	{
-		ft_strdel(line); // ajout
+		ft_strdel(line);
 		ft_error("no map or spaces in line", env);
 	}
 	if (ft_strlen(line) > (size_t)env->conf->map_w)
@@ -54,7 +54,7 @@ char	**ft_build_tab(int xmax, int ymax, t_env *env)
 	{
 		if (!(tab[i] = ft_calloc((xmax + 1), 1)))
 		{
-			ft_tabdel(tab); // ajout
+			ft_tabdel(tab);
 			ft_error("ram allocation error", env);
 		}
 		ft_memset(tab[i], ' ', xmax);

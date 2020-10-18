@@ -37,11 +37,17 @@ void	parse_res(t_env *env, char *line)
 	char	**tab;
 
 	if (!(tab = ft_split(line, ' ')))
-		ft_error("ram allocation error\n", env);
-	if (ft_tablen(tab) != 3 || ft_atoi(tab[1]) < 300 || ft_atoi(tab[2]) < 300)
 	{
+		ft_strdel(line);
+		ft_error("ram allocation error\n", env);
+	}
+	if (ft_tablen(tab) != 3 || ft_atoi(tab[1]) < 300 || ft_atoi(tab[2]) < 300
+	|| !is_charset_str(tab[1], "0123456789")
+	|| !is_charset_str(tab[2], "0123456789"))
+	{
+		ft_strdel(line);
 		ft_tabdel(tab);
-		ft_error("invalid res line\n", env);
+		ft_error("invalid res line. (only digits. min res : 300 300)\n", env);
 	}
 	set_res_wh(env, ft_atoi(tab[1]), ft_atoi(tab[2]));
 	if (tab)

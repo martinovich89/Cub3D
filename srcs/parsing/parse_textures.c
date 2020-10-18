@@ -19,7 +19,7 @@ int		is_valid_path(char *str)
 	char	buffer[1];
 	
 	fd = open(str, O_RDONLY);
-	if ((ret = read(fd, buffer, 1)) < 0)
+	if (fd < 0 || (ret = read(fd, buffer, 1)) < 0)
 		return (0);
 	close(fd);
 	return (1);
@@ -28,19 +28,19 @@ int		is_valid_path(char *str)
 void	set_tex_path(t_env *env, char *path, int nb)
 {
 	if (nb == 1)
-		if (!(env->conf->path_no = ft_strdup(path)))
+		if (env->conf->path_no || !(env->conf->path_no = ft_strdup(path)))
 			ft_error("ram allocation error\n", env);
 	if (nb == 2)
-		if (!(env->conf->path_ea = ft_strdup(path)))
+		if (env->conf->path_ea || !(env->conf->path_ea = ft_strdup(path)))
 			ft_error("ram allocation error\n", env);
 	if (nb == 3)
-		if (!(env->conf->path_we = ft_strdup(path)))
+		if (env->conf->path_we || !(env->conf->path_we = ft_strdup(path)))
 			ft_error("ram allocation error\n", env);
 	if (nb == 4)
-		if (!(env->conf->path_so = ft_strdup(path)))
+		if (env->conf->path_so || !(env->conf->path_so = ft_strdup(path)))
 			ft_error("ram allocation error\n", env);
 	if (nb == 5)
-		if (!(env->conf->path_sp = ft_strdup(path)))
+		if (env->conf->path_sp || !(env->conf->path_sp = ft_strdup(path)))
 			ft_error("ram allocation error\n", env);
 }
 

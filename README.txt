@@ -56,3 +56,7 @@ CONSIGNES :
 - Les espaces sont pris en compte dans le parsing de la map, et doivent donc aussi être alloués.
 
 //////////////////////////////////////////////////////////////////////////////////
+
+espaces.
+res min message.
+empty line end file.

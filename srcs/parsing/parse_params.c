@@ -34,7 +34,7 @@ int		cmp_and_parse(t_env *env, char *line)
 			parse_color(env, line, 2);
 		else
 		{
-			ft_strdel(line); // ajout
+			ft_strdel(line);
 			ft_error("invalid line in .cub file\n", env);
 		}
 		return (1);
@@ -54,6 +54,20 @@ int		is_valid_conf(t_env *env)
 	return (1);
 }
 
+int		space_at_end_line(char *str)
+{
+	int i;
+
+	if (!*str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	if (str[i - 1] == ' ')
+		return (1);
+	return (0);
+}
+
 void	parse_params(t_env *env)
 {
 	char	*line;
@@ -65,6 +79,11 @@ void	parse_params(t_env *env)
 	while (get_next_line(fd, &line) > 0
 	&& !(is_charset_str(line, " 1") && is_in_str(line, '1')))
 	{
+		if (space_at_end_line(line) || (i == 0 && !*line))
+		{
+			ft_strdel(line);
+			ft_error("invalid space or empty line\n", env);
+		}
 		if (cmp_and_parse(env, line))
 			i++;
 		ft_strdel(line);
