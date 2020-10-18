@@ -12,6 +12,12 @@
 
 #include "cub.h"
 
+void	norminette_quit(char *line, t_env *env)
+{
+	ft_strdel(line);
+	ft_error("invalid line in .cub file\n", env);
+}
+
 int		cmp_and_parse(t_env *env, char *line)
 {
 	if (*line)
@@ -33,10 +39,7 @@ int		cmp_and_parse(t_env *env, char *line)
 		else if (!ft_strncmp(line, "F ", 2))
 			parse_color(env, line, 2);
 		else
-		{
-			ft_strdel(line);
-			ft_error("invalid line in .cub file\n", env);
-		}
+			norminette_quit(line, env);
 		return (1);
 	}
 	return (0);

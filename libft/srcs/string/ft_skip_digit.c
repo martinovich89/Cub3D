@@ -12,12 +12,12 @@
 
 #include "libft.h"
 
-int ft_skip_digit(char *str)
+int	ft_skip_digit(char *str)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (str[i] && ft_isdigit(str[i]))
-        i++;
-    return (i);
+	i = 0;
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	return (i);
 }

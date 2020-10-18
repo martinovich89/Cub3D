@@ -17,7 +17,7 @@ int		is_valid_path(char *str)
 	int		fd;
 	int		ret;
 	char	buffer[1];
-	
+
 	fd = open(str, O_RDONLY);
 	if (fd < 0 || (ret = read(fd, buffer, 1)) < 0)
 		return (0);

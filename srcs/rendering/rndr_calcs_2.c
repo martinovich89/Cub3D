@@ -81,7 +81,8 @@ void	sprite_fill_stripe(t_env *env, int i)
 		j++;
 	while (j < env->conf->res_h && j <= env->sp.bot)
 	{
-		if ((color = get_sprite_color(env) & 0x00FFFFFF) && !env->rndr->sheet[j][i])
+		if ((color = get_sprite_color(env) & 0x00FFFFFF)
+		&& !env->rndr->sheet[j][i])
 			env->rndr->sheet[j][i] = color;
 		env->sp.texPos += env->sp.ratio;
 		env->sp.texY = (int)env->sp.texPos;

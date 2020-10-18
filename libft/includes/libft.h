@@ -22,25 +22,25 @@
 
 # define BUFFER_SIZE 1
 
-void    ft_uint_strdel(unsigned int *str);
-int     ft_uint_tablen(unsigned int **tab);
-void    ft_uint_tabdel(unsigned int **tab);
-void    ft_putchar(char c);
-void    ft_putstr(char *str);
-int     is_charset(char c, char *str);
-int     ft_tablen(char **tab);
-void    ft_tabdel(char **tab);
-void    destroy(void **ptr);
-int     ft_skip_alpha(char *str);
-int     ft_skip_digit(char *str);
+void	ft_uint_strdel(unsigned int *str);
+int		ft_uint_tablen(unsigned int **tab);
+void	ft_uint_tabdel(unsigned int **tab);
+void	ft_putchar(char c);
+void	ft_putstr(char *str);
+int		is_charset(char c, char *str);
+int		ft_tablen(char **tab);
+void	ft_tabdel(char **tab);
+void	destroy(void **ptr);
+int		ft_skip_alpha(char *str);
+int		ft_skip_digit(char *str);
 void	ft_strdel(char *s);
 size_t	ft_strlen(const char *str);
 int		where_in_str(char *str, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	savehandler(char **s1, char **s2);
 void	ft_strdel(char *s);
-int     is_in_str(char *str, char c);
-int     is_charset_str(char *s1, char *s2);
+int		is_in_str(char *str, char c);
+int		is_charset_str(char *s1, char *s2);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
@@ -56,7 +56,7 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int a);
-int 	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstdize);
 char	*ft_strnstr(const char *str, const char *tofind, size_t len);
