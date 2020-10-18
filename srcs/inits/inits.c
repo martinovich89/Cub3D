@@ -28,32 +28,32 @@ void	init_conf(t_conf *conf)
 
 void	init_img(t_data *img)
 {
-	img->H = 0;
-	img->W = 0;
+	img->h = 0;
+	img->w = 0;
 }
 
 void	init_textures(t_env *env)
 {
 	if (!(env->tex[0].img = mlx_xpm_file_to_image(env->mlx
-	, env->conf->path_no, &env->tex[0].W, &env->tex[0].H)))
+	, env->conf->path_no, &env->tex[0].w, &env->tex[0].h)))
 		ft_error("failed to allocate tex[0].img\n", env);
 	if (!(env->tex[0].addr = mlx_get_data_addr(env->tex[0].img
 	, &env->tex[0].bpp, &env->tex[0].line_length, &env->tex[0].endian)))
 		ft_error("failed to allocate tex[0].addr\n", env);
 	if (!(env->tex[1].img = mlx_xpm_file_to_image(env->mlx
-	, env->conf->path_ea, &env->tex[1].W, &env->tex[1].H)))
+	, env->conf->path_ea, &env->tex[1].w, &env->tex[1].h)))
 		ft_error("failed to allocate tex[1].img\n", env);
 	if (!(env->tex[1].addr = mlx_get_data_addr(env->tex[1].img
 	, &env->tex[1].bpp, &env->tex[1].line_length, &env->tex[1].endian)))
 		ft_error("failed to allocate tex[1].addr\n", env);
 	if (!(env->tex[2].img = mlx_xpm_file_to_image(env->mlx
-	, env->conf->path_we, &env->tex[2].W, &env->tex[2].H)))
+	, env->conf->path_we, &env->tex[2].w, &env->tex[2].h)))
 		ft_error("failed to allocate tex[2].img\n", env);
 	if (!(env->tex[2].addr = mlx_get_data_addr(env->tex[2].img
 	, &env->tex[2].bpp, &env->tex[2].line_length, &env->tex[2].endian)))
 		ft_error("failed to allocate tex[2].addr\n", env);
 	if (!(env->tex[3].img = mlx_xpm_file_to_image(env->mlx
-	, env->conf->path_so, &env->tex[3].W, &env->tex[3].H)))
+	, env->conf->path_so, &env->tex[3].w, &env->tex[3].h)))
 		ft_error("failed to allocate tex[3].img\n", env);
 	if (!(env->tex[3].addr = mlx_get_data_addr(env->tex[3].img
 	, &env->tex[3].bpp, &env->tex[3].line_length, &env->tex[3].endian)))
@@ -76,7 +76,7 @@ void	init_mlx(t_env *env)
 		ft_error("failed to allocate img.addr\n", env);
 	init_textures(env);
 	if (!(env->sp.tex.img = mlx_xpm_file_to_image(env->mlx
-	, env->conf->path_sp, &env->sp.tex.W, &env->sp.tex.H)))
+	, env->conf->path_sp, &env->sp.tex.w, &env->sp.tex.h)))
 		ft_error("failed to allocate sp.tex.img\n", env);
 	if (!(env->sp.tex.addr = mlx_get_data_addr(env->sp.tex.img
 	, &env->sp.tex.bpp, &env->sp.tex.line_length, &env->sp.tex.endian)))

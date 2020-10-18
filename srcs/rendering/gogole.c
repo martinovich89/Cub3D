@@ -14,28 +14,28 @@
 
 void	gogole_un(t_env *env)
 {
-	env->sp.hit_posX = env->sp.pos.x;
-	env->sp.hit_posY = env->sp.pos.y;
+	env->sp.hit_posx = env->sp.pos.x;
+	env->sp.hit_posy = env->sp.pos.y;
 }
 
 void	gogole_deux(t_env *env)
 {
-	env->sp.hit_posX = (env->sp.hit_line.intercept
+	env->sp.hit_posx = (env->sp.hit_line.intercept
 	- env->map->ray.intercept) / (env->map->ray.coef - env->sp.hit_line.coef);
-	env->sp.hit_posY = env->sp.pos.y;
+	env->sp.hit_posy = env->sp.pos.y;
 }
 
 void	gogole_trois(t_env *env)
 {
-	env->sp.hit_posX = env->sp.pos.x;
-	env->sp.hit_posY = env->map->ray.coef
-	* env->sp.hit_posX + env->map->ray.intercept;
+	env->sp.hit_posx = env->sp.pos.x;
+	env->sp.hit_posy = env->map->ray.coef
+	* env->sp.hit_posx + env->map->ray.intercept;
 }
 
 void	gogole_quatre(t_env *env)
 {
-	env->sp.hit_posX = (env->sp.hit_line.intercept
+	env->sp.hit_posx = (env->sp.hit_line.intercept
 	- env->map->ray.intercept) / (env->map->ray.coef - env->sp.hit_line.coef);
-	env->sp.hit_posY = env->map->ray.coef
-	* env->sp.hit_posX + env->map->ray.intercept;
+	env->sp.hit_posy = env->map->ray.coef
+	* env->sp.hit_posx + env->map->ray.intercept;
 }

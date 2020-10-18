@@ -33,8 +33,8 @@ void	ray_calc(t_env *env)
 	+ env->map->plane.x * env->map->cam_ratio;
 	env->map->ray.y = env->map->dir.y
 	+ env->map->plane.y * env->map->cam_ratio;
-	env->map->ray.posX = env->map->pos.x;
-	env->map->ray.posY = env->map->pos.y;
+	env->map->ray.posx = env->map->pos.x;
+	env->map->ray.posy = env->map->pos.y;
 	env->map->ray.coef = env->map->ray.y / env->map->ray.x;
 	env->map->ray.intercept = env->map->pos.y
 	- env->map->ray.coef * env->map->pos.x;
@@ -43,14 +43,14 @@ void	ray_calc(t_env *env)
 void	gap_calc(t_env *env)
 {
 	if (env->map->ray.y == 0.0F)
-		env->map->gapX = 0.0F;
+		env->map->gapx = 0.0F;
 	else
-		env->map->gapX = (env->map->ray.x == 0.0F)
+		env->map->gapx = (env->map->ray.x == 0.0F)
 		? 1.0F : fabs(1.0F / env->map->ray.x);
 	if (env->map->ray.x == 0.0F)
-		env->map->gapY = 0.0F;
+		env->map->gapy = 0.0F;
 	else
-		env->map->gapY = (env->map->ray.y == 0.0F)
+		env->map->gapy = (env->map->ray.y == 0.0F)
 		? 1.0F : fabs(1.0F / env->map->ray.y);
 }
 

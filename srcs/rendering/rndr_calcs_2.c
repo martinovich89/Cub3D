@@ -14,8 +14,8 @@
 
 void	texxy_calc(t_env *env)
 {
-	env->rndr->texX = (int)(env->rndr->wallX * (float)env->rndr->tex->W);
-	env->rndr->texY = (int)env->rndr->texPosX;
+	env->rndr->texx = (int)(env->rndr->wallx * (float)env->rndr->tex->w);
+	env->rndr->texy = (int)env->rndr->texposx;
 }
 
 int		get_tex_color(t_env *env)
@@ -23,11 +23,11 @@ int		get_tex_color(t_env *env)
 	int color;
 
 	color = 0;
-	if (env->rndr->texPosX >= 0 && env->rndr->texPosX < env->rndr->tex->H
-	&& env->rndr->texX >= 0 && env->rndr->texX < env->rndr->tex->W)
+	if (env->rndr->texposx >= 0 && env->rndr->texposx < env->rndr->tex->h
+	&& env->rndr->texx >= 0 && env->rndr->texx < env->rndr->tex->w)
 		color = *(int*)(env->rndr->tex->addr
-		+ (4 * env->rndr->tex->W * (int)env->rndr->texY)
-		+ (4 * (int)env->rndr->texX));
+		+ (4 * env->rndr->tex->w * (int)env->rndr->texy)
+		+ (4 * (int)env->rndr->texx));
 	return (color);
 }
 
@@ -36,11 +36,11 @@ int		get_sprite_color(t_env *env)
 	int color;
 
 	color = 0;
-	if (env->sp.texPos >= 0 && env->sp.texPos < env->sp.tex.H
-	&& env->sp.texX >= 0 && env->sp.texX < env->sp.tex.W)
+	if (env->sp.texpos >= 0 && env->sp.texpos < env->sp.tex.h
+	&& env->sp.texx >= 0 && env->sp.texx < env->sp.tex.w)
 		color = *(int*)(env->sp.tex.addr
-		+ (4 * env->sp.tex.W * (int)env->sp.texY)
-		+ (4 * (int)env->sp.texX));
+		+ (4 * env->sp.tex.w * (int)env->sp.texy)
+		+ (4 * (int)env->sp.texx));
 	return (color);
 }
 
@@ -59,8 +59,8 @@ void	fill_stripe(t_env *env, int i)
 	{
 		if (!env->rndr->sheet[j][i])
 			env->rndr->sheet[j][i] = get_tex_color(env);
-		env->rndr->texPosX += env->rndr->ratio;
-		env->rndr->texY = (int)env->rndr->texPosX & (env->rndr->tex->H - 1);
+		env->rndr->texposx += env->rndr->ratio;
+		env->rndr->texy = (int)env->rndr->texposx & (env->rndr->tex->h - 1);
 		j++;
 	}
 	while (j < env->conf->res_h)
@@ -84,10 +84,10 @@ void	sprite_fill_stripe(t_env *env, int i)
 		if ((color = get_sprite_color(env) & 0x00FFFFFF)
 		&& !env->rndr->sheet[j][i])
 			env->rndr->sheet[j][i] = color;
-		env->sp.texPos += env->sp.ratio;
-		env->sp.texY = (int)env->sp.texPos;
-		if (env->sp.texY >= env->sp.tex.H)
-			env->sp.texY = env->sp.tex.H - 1;
+		env->sp.texpos += env->sp.ratio;
+		env->sp.texy = (int)env->sp.texpos;
+		if (env->sp.texy >= env->sp.tex.h)
+			env->sp.texy = env->sp.tex.h - 1;
 		j++;
 	}
 }

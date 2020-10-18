@@ -23,16 +23,16 @@ void	perp_sprite_dist_calc(t_env *env)
 	float	xr;
 	float	yr;
 
-	env->map->plane.posX = env->map->pos.x + env->map->dir.x;
-	env->map->plane.posY = env->map->pos.y + env->map->dir.y;
+	env->map->plane.posx = env->map->pos.x + env->map->dir.x;
+	env->map->plane.posy = env->map->pos.y + env->map->dir.y;
 	env->map->plane.coef = env->map->plane.y / env->map->plane.x;
-	env->map->plane.intercept = env->map->plane.posY
-	- env->map->plane.coef * env->map->plane.posX;
-	env->sp.vector.posX = env->map->pos.x;
-	env->sp.vector.posY = env->map->pos.y;
+	env->map->plane.intercept = env->map->plane.posy
+	- env->map->plane.coef * env->map->plane.posx;
+	env->sp.vector.posx = env->map->pos.x;
+	env->sp.vector.posy = env->map->pos.y;
 	env->sp.vector.coef = env->sp.vector.y / env->sp.vector.x;
-	env->sp.vector.intercept = env->sp.vector.posY
-	- env->sp.vector.coef * env->sp.vector.posX;
+	env->sp.vector.intercept = env->sp.vector.posy
+	- env->sp.vector.coef * env->sp.vector.posx;
 	xr = (env->map->plane.intercept - env->sp.vector.intercept)
 	/ (env->sp.vector.coef - env->map->plane.coef);
 	yr = env->sp.vector.coef * xr + env->sp.vector.intercept;
@@ -51,15 +51,15 @@ void	sprite_dist_calc(t_env *env)
 
 void	sprite_scaled_height_calc(t_env *env)
 {
-	env->sp.scaledH = (int)((float)env->conf->res_h / env->sp.pdist);
+	env->sp.scaledh = (int)((float)env->conf->res_h / env->sp.pdist);
 }
 
 void	sprite_limits_calc(t_env *env)
 {
-	env->sp.top = (env->conf->res_h - env->sp.scaledH) / 2;
+	env->sp.top = (env->conf->res_h - env->sp.scaledh) / 2;
 	if (env->sp.top < 0)
 		env->sp.top = 0;
-	env->sp.bot = (env->conf->res_h + env->sp.scaledH) / 2;
+	env->sp.bot = (env->conf->res_h + env->sp.scaledh) / 2;
 	if (env->sp.bot >= env->conf->res_h)
 		env->sp.bot = env->conf->res_h - 1;
 }

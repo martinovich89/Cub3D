@@ -14,17 +14,17 @@
 
 void	sprite_ratio_calc(t_env *env)
 {
-	env->sp.ratio = (float)env->sp.tex.H / (float)env->sp.scaledH;
+	env->sp.ratio = (float)env->sp.tex.h / (float)env->sp.scaledh;
 }
 
 void	sprite_texpos_calc(t_env *env)
 {
-	env->sp.texPos = (((float)env->sp.scaledH - (float)env->conf->res_h)
+	env->sp.texpos = (((float)env->sp.scaledh - (float)env->conf->res_h)
 	/ 2.0F + (float)env->sp.top) * env->sp.ratio;
 }
 
 void	sprite_texxy_calc(t_env *env)
 {
-	env->sp.texX = (int)((float)env->sp.tex.W * env->sp.hitX);
-	env->sp.texY = (int)env->sp.texPos;
+	env->sp.texx = (int)((float)env->sp.tex.w * env->sp.hitx);
+	env->sp.texy = (int)env->sp.texpos;
 }

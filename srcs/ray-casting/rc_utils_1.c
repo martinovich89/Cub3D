@@ -20,8 +20,8 @@ void	set_dir(t_vector *vector, float x, float y)
 
 void	set_pos(t_vector *vector, float x, float y)
 {
-	vector->posX = x;
-	vector->posY = y;
+	vector->posx = x;
+	vector->posy = y;
 }
 
 float	rad_conv(float angle)

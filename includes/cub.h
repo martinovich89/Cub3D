@@ -38,8 +38,8 @@ typedef struct		s_vector
 	float			y;
 	float			coef;
 	float			intercept;
-	float			posX;
-	float			posY;
+	float			posx;
+	float			posy;
 }					t_vector;
 
 typedef struct		s_data
@@ -49,8 +49,8 @@ typedef struct		s_data
 	int				bpp;
 	int				line_length;
 	int				endian;
-	int				W;
-	int				H;
+	int				w;
+	int				h;
 }					t_data;
 
 typedef struct		s_sprite
@@ -60,18 +60,18 @@ typedef struct		s_sprite
 	t_vector		vector;
 	t_vector		hit_line;
 	t_vector		hit;
-	float			hit_posX;
-	float			hit_posY;
+	float			hit_posx;
+	float			hit_posy;
 	float			dist;
 	float			pdist;
-	int				scaledH;
+	int				scaledh;
 	int				top;
 	int				bot;
-	float			hitX;
-	float			texPos;
+	float			hitx;
+	float			texpos;
 	float			ratio;
-	int				texX;
-	int				texY;
+	int				texx;
+	int				texy;
 	int				ok;
 }					t_sprite;
 
@@ -109,12 +109,12 @@ typedef struct		s_map
 	t_vector		inter;
 	float			cam_ratio;
 	t_vector		ray;
-	float			nextX;
-	float			nextY;
-	float			gapX;
-	float			gapY;
-	int				signX;
-	int				signY;
+	float			nextx;
+	float			nexty;
+	float			gapx;
+	float			gapy;
+	int				signx;
+	int				signy;
 	int				side;
 	float			perp_wall_dist;
 	float			rota;
@@ -123,15 +123,15 @@ typedef struct		s_map
 typedef struct		s_rndr
 {
 	unsigned int	**sheet;
-	int				wallH;
+	int				wallh;
 	int				wall_bot;
 	int				wall_top;
-	float			wallX;
+	float			wallx;
 	float			ratio;
 	t_data			*tex;
-	float			texPosX;
-	int				texX;
-	int				texY;
+	float			texposx;
+	int				texx;
+	int				texy;
 }					t_rndr;
 
 typedef struct		s_env

@@ -16,12 +16,12 @@ void	hit_line_calc(t_env *env)
 {
 	env->sp.hit_line.x = env->sp.vector.x;
 	env->sp.hit_line.y = env->sp.vector.y;
-	env->sp.hit_line.posX = env->map->pos.x + env->sp.vector.x;
-	env->sp.hit_line.posY = env->map->pos.y + env->sp.vector.y;
+	env->sp.hit_line.posx = env->map->pos.x + env->sp.vector.x;
+	env->sp.hit_line.posy = env->map->pos.y + env->sp.vector.y;
 	rotation(&env->sp.hit_line, (M_PI / 2));
 	env->sp.hit_line.coef = env->sp.hit_line.y / env->sp.hit_line.x;
-	env->sp.hit_line.intercept = env->sp.hit_line.posY
-	- env->sp.hit_line.posX * env->sp.hit_line.coef;
+	env->sp.hit_line.intercept = env->sp.hit_line.posy
+	- env->sp.hit_line.posx * env->sp.hit_line.coef;
 }
 
 void	intersection_calc(t_env *env)
@@ -41,34 +41,34 @@ void	intersection_calc(t_env *env)
 
 void	set_inter(t_env *env)
 {
-	env->map->inter.x = env->sp.hit_posX - env->map->pos.x;
-	env->map->inter.y = env->sp.hit_posY - env->map->pos.y;
+	env->map->inter.x = env->sp.hit_posx - env->map->pos.x;
+	env->map->inter.y = env->sp.hit_posy - env->map->pos.y;
 }
 
 void	set_hit(t_env *env)
 {
-	env->sp.hitX = sqrtf(powf((env->sp.hit_posX - env->sp.hit_line.posX), 2.0F)
-	+ powf((env->sp.hit_posY - env->sp.hit_line.posY), 2.0F));
+	env->sp.hitx = sqrtf(powf((env->sp.hit_posx - env->sp.hit_line.posx), 2.0F)
+	+ powf((env->sp.hit_posy - env->sp.hit_line.posy), 2.0F));
 	set_inter(env);
-	if (env->sp.hitX <= 0.5)
+	if (env->sp.hitx <= 0.5)
 	{
 		env->sp.ok = 1;
 		if (env->map->ray.y < 0
 		&& fabs(env->map->ray.y) >= fabs(env->map->ray.x))
-			env->sp.hitX = (env->map->inter.x > env->sp.vector.x)
-			? 0.5 + env->sp.hitX : 0.5 - env->sp.hitX;
+			env->sp.hitx = (env->map->inter.x > env->sp.vector.x)
+			? 0.5 + env->sp.hitx : 0.5 - env->sp.hitx;
 		else if (env->map->ray.x > 0
 		&& fabs(env->map->ray.x) >= fabs(env->map->ray.y))
-			env->sp.hitX = (env->map->inter.y > env->sp.vector.y)
-			? 0.5 + env->sp.hitX : 0.5 - env->sp.hitX;
+			env->sp.hitx = (env->map->inter.y > env->sp.vector.y)
+			? 0.5 + env->sp.hitx : 0.5 - env->sp.hitx;
 		else if (env->map->ray.y > 0
 		&& fabs(env->map->ray.y) >= fabs(env->map->ray.x))
-			env->sp.hitX = (env->map->inter.x < env->sp.vector.x)
-			? 0.5 + env->sp.hitX : 0.5 - env->sp.hitX;
+			env->sp.hitx = (env->map->inter.x < env->sp.vector.x)
+			? 0.5 + env->sp.hitx : 0.5 - env->sp.hitx;
 		else if (env->map->ray.x < 0
 		&& fabs(env->map->ray.x) >= fabs(env->map->ray.y))
-			env->sp.hitX = (env->map->inter.y < env->sp.vector.y)
-			? 0.5 + env->sp.hitX : 0.5 - env->sp.hitX;
+			env->sp.hitx = (env->map->inter.y < env->sp.vector.y)
+			? 0.5 + env->sp.hitx : 0.5 - env->sp.hitx;
 	}
 	else
 		env->sp.ok = 0;
