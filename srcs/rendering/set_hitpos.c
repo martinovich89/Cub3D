@@ -12,27 +12,27 @@
 
 #include "cub.h"
 
-void	gogole_un(t_env *env)
+void	set_hitpos_un(t_env *env)
 {
 	env->sp.hit_posx = env->sp.pos.x;
 	env->sp.hit_posy = env->sp.pos.y;
 }
 
-void	gogole_deux(t_env *env)
+void	set_hitpos_deux(t_env *env)
 {
 	env->sp.hit_posx = (env->sp.hit_line.intercept
 	- env->map->ray.intercept) / (env->map->ray.coef - env->sp.hit_line.coef);
 	env->sp.hit_posy = env->sp.pos.y;
 }
 
-void	gogole_trois(t_env *env)
+void	set_hitpos_trois(t_env *env)
 {
 	env->sp.hit_posx = env->sp.pos.x;
 	env->sp.hit_posy = env->map->ray.coef
 	* env->sp.hit_posx + env->map->ray.intercept;
 }
 
-void	gogole_quatre(t_env *env)
+void	set_hitpos_quatre(t_env *env)
 {
 	env->sp.hit_posx = (env->sp.hit_line.intercept
 	- env->map->ray.intercept) / (env->map->ray.coef - env->sp.hit_line.coef);
