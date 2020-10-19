@@ -12,21 +12,21 @@
 
 #include "libft.h"
 
-unsigned int    **ft_build_uint_tab(int w, int h)
+unsigned int	**ft_build_uint_tab(int w, int h)
 {
-    unsigned int    **tab;
-    int                i;
-    size_t            j;
+	unsigned int	**tab;
+	int				i;
+	size_t			j;
 
-    j = h + 1;
-    i = 0;
-    if (!(tab = ft_calloc(j, sizeof(unsigned int *))))
-        return (NULL);
-    while (i < h)
-    {
-        if (!(tab[i] = malloc(sizeof(unsigned int) * w)))
-            return (NULL);
-        i++;
-    }
-    return (tab);
+	j = h + 1;
+	i = 0;
+	if (!(tab = ft_calloc(j, sizeof(unsigned int *))))
+		return (NULL);
+	while (i < h)
+	{
+		if (!(tab[i] = malloc(sizeof(unsigned int) * w)))
+			return (NULL);
+		i++;
+	}
+	return (tab);
 }
