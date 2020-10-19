@@ -14,18 +14,15 @@
 
 void	ft_uint_tabdel(unsigned int **tab)
 {
-	int len;
 	int i;
 
-	len = ft_uint_tablen(tab);
 	i = 0;
-	while (tab[i])
+	while (tab[i] != NULL)
 	{
 		ft_uint_strdel(tab[i]);
 		i++;
 	}
 	if (tab)
 		free(tab);
-	len++;
 	tab = NULL;
 }
