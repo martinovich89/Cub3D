@@ -39,7 +39,7 @@ void	ft_clear_map(t_map *map)
 
 void	ft_clear_rndr(t_rndr *rndr)
 {
-	if (rndr && rndr->sheet)
+	if (rndr->sheet)
 		ft_uint_tabdel(rndr->sheet);
 	free(rndr);
 }

@@ -20,6 +20,7 @@ t_bmp			init_bmp(t_env *env)
 	bmp.zero = 0;
 	bmp.data_offset = 54;
 	bmp.size_dib = 40;
+	bmp.planes = 1;
 	bmp.bpp = 32;
 	return (bmp);
 }
