@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:36:00 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:36:39 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 20:10:04 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ void				set_hitpos_deux(t_env *env);
 void				set_hitpos_trois(t_env *env);
 void				set_hitpos_quatre(t_env *env);
 
-int					close_window(int keycode, t_env *env);
+int					close_window(t_env *env);
 int					key_press(int keycode, t_env *env);
 int					key_release(int keycode, t_env *env);
 

@@ -25,7 +25,6 @@ RENDERING	=	rendering/rndr_calcs_1.c \
 				rendering/set_hitpos.c \
 
 GNL			=	GNL/get_next_line.c \
-				GNL/get_next_line_utils.c \
 
 UTILS		=	utils/clear.c \
 				utils/save.c \
@@ -80,7 +79,6 @@ clean:
 
 fclean: clean
 		@make $@ -C libft
-		# @make $@ -C libs/mlx
 		$(RM) $(NAME)
 		@echo "$(NAME) deleted"
 

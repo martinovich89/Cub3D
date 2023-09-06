@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhenry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:20:35 by mhenry            #+#    #+#             */
-/*   Updated: 2020/09/30 11:12:56 by tcarasso         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:23:57 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ void	ft_putchar(char c);
 void	ft_putstr(char *str);
 int		is_charset(char c, char *str);
 int		ft_tablen(char **tab);
-void	ft_tabdel(char **tab);
+void	ft_tabdel(char ***tab);
 void	destroy(void **ptr);
 int		ft_skip_alpha(char *str);
 int		ft_skip_digit(char *str);
-void	ft_strdel(char *s);
+void	ft_strdel(char **s);
 size_t	ft_strlen(const char *str);
 int		where_in_str(char *str, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	savehandler(char **s1, char **s2);
-void	ft_strdel(char *s);
 int		is_in_str(char *str, char c);
 int		is_charset_str(char *s1, char *s2);
 void	*ft_memset(void *b, int c, size_t len);

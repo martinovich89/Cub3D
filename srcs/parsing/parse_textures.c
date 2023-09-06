@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:50:30 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:50:31 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:23:37 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ void	set_tex_path(t_env *env, char *path, int nb)
 {
 	if (nb == 1)
 		if (env->conf->path_no || !(env->conf->path_no = ft_strdup(path)))
-			ft_error("ram allocation error\n", env);
+			ft_error("allocation error\n", env);
 	if (nb == 2)
 		if (env->conf->path_ea || !(env->conf->path_ea = ft_strdup(path)))
-			ft_error("ram allocation error\n", env);
+			ft_error("allocation error\n", env);
 	if (nb == 3)
 		if (env->conf->path_we || !(env->conf->path_we = ft_strdup(path)))
-			ft_error("ram allocation error\n", env);
+			ft_error("allocation error\n", env);
 	if (nb == 4)
 		if (env->conf->path_so || !(env->conf->path_so = ft_strdup(path)))
-			ft_error("ram allocation error\n", env);
+			ft_error("allocation error\n", env);
 	if (nb == 5)
 		if (env->conf->path_sp || !(env->conf->path_sp = ft_strdup(path)))
-			ft_error("ram allocation error\n", env);
+			ft_error("allocation error\n", env);
 }
 
 void	parse_tex(t_env *env, char *line, int nb)
@@ -50,16 +50,16 @@ void	parse_tex(t_env *env, char *line, int nb)
 
 	if (!(tab = ft_split(line, ' ')))
 	{
-		ft_strdel(line);
-		ft_error("ram allocation error\n", env);
+		ft_strdel(&line);
+		ft_error("allocation error\n", env);
 	}
 	if (ft_tablen(tab) != 2 || !is_valid_path(tab[1]))
 	{
-		ft_strdel(line);
-		ft_tabdel(tab);
+		ft_strdel(&line);
+		ft_tabdel(&tab);
 		ft_error("invalid texture line\n", env);
 	}
 	set_tex_path(env, tab[1], nb);
 	if (tab)
-		ft_tabdel(tab);
+		ft_tabdel(&tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 00:04:39 by martin            #+#    #+#             */
-/*   Updated: 2020/10/17 00:04:42 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 19:42:28 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	norminette_quit(char *line, t_env *env)
 {
-	ft_strdel(line);
+	ft_strdel(&line);
 	ft_error("invalid line in .cub file\n", env);
 }
 
@@ -73,7 +73,7 @@ int		space_at_end_line(char *str)
 
 void	parse_params(t_env *env)
 {
-	char	*line;
+	char	*line = NULL;
 	int		i;
 	int		fd;
 
@@ -84,15 +84,15 @@ void	parse_params(t_env *env)
 	{
 		if (space_at_end_line(line) || (i == 0 && !*line))
 		{
-			ft_strdel(line);
+			ft_strdel(&line);
 			ft_error("invalid space or empty line\n", env);
 		}
 		if (cmp_and_parse(env, line))
 			i++;
-		ft_strdel(line);
+		ft_strdel(&line);
 	}
 	if (line)
-		ft_strdel(line);
+		ft_strdel(&line);
 	if (i != 8)
 		ft_error("invalid parameter lines count\n", env);
 	if (!is_valid_conf(env))

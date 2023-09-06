@@ -6,7 +6,7 @@
 /*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:53:10 by martin            #+#    #+#             */
-/*   Updated: 2023/09/05 16:20:56 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 19:45:57 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_clear_conf(t_conf *conf)
 	free(conf->path_sp);
 	conf->path_sp = NULL;
 	if (conf->map)
-		ft_tabdel(conf->map);
+		ft_tabdel(&conf->map);
 	free(conf);
 }
 
@@ -79,7 +79,6 @@ void	ft_clear_env(t_env *env)
 		if (env->mlx && env->win)
 			mlx_destroy_window(env->mlx, env->win);
 		if (env->mlx) {
-			printf("mlx_destroy_display\n");
 			mlx_destroy_display(env->mlx);
 			free(env->mlx);
 		}

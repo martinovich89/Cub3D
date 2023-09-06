@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:50:00 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:50:02 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:23:21 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_w_h(t_env *env)
 		free(line);
 	if (!is_charset_str(line, " 1") || !is_in_str(line, '1'))
 	{
-		ft_strdel(line);
+		ft_strdel(&line);
 		ft_error("no map or spaces in line", env);
 	}
 	if (ft_strlen(line) > (size_t)env->conf->map_w)
@@ -47,15 +47,15 @@ char	**ft_build_tab(int xmax, int ymax, t_env *env)
 	int		i;
 
 	if (!(tab = (char **)malloc(sizeof(*tab) * (ymax + 1))))
-		ft_error("ram allocation error", env);
+		ft_error("allocation error", env);
 	ft_memset(tab, 0, sizeof(unsigned int *) * ymax + 1);
 	i = 0;
 	while (i < ymax)
 	{
 		if (!(tab[i] = ft_calloc((xmax + 1), 1)))
 		{
-			ft_tabdel(tab);
-			ft_error("ram allocation error", env);
+			ft_tabdel(&tab);
+			ft_error("allocation error", env);
 		}
 		ft_memset(tab[i], ' ', xmax);
 		i++;
