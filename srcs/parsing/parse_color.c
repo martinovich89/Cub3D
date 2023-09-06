@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:49:53 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:49:54 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:23:17 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_colr(t_env *env, char *str, int nb)
 
 	tab = NULL;
 	if (!(tab = ft_split(str, ',')))
-		ft_error("ram allocation error\n", env);
+		ft_error("allocation error\n", env);
 	if (nb == 1)
 	{
 		env->conf->ceil = (ft_atoi(tab[0]) << 16 | ft_atoi(tab[1]) << 8 |
@@ -32,7 +32,7 @@ void	set_colr(t_env *env, char *str, int nb)
 		env->conf->floo_is_set = 1;
 	}
 	if (tab)
-		ft_tabdel(tab);
+		ft_tabdel(&tab);
 }
 
 int		is_valid_colr(char *str)
@@ -69,10 +69,10 @@ void	parse_color(t_env *env, char *line, int nb)
 		ft_error("erreur d'allocation mémoire\n", env);
 	if (ft_tablen(tab) != 2 || !is_valid_colr(tab[1]))
 	{
-		ft_tabdel(tab);
+		ft_tabdel(&tab);
 		ft_error("invalid color line in .cub file\n", env);
 	}
 	set_colr(env, tab[1], nb);
 	if (tab)
-		ft_tabdel(tab);
+		ft_tabdel(&tab);
 }

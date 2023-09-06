@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 00:16:45 by martin            #+#    #+#             */
-/*   Updated: 2020/10/17 00:16:47 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 20:11:07 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		close_window(int keycode, t_env *env)
+int		close_window(t_env *env)
 {
-	if (keycode == 65307)
-		ft_clear_env(env);
-	exit(0);
-	return (keycode);
+	mlx_loop_end(env->mlx);
+	return (0);
 }
 
 int		key_press(int keycode, t_env *env)
@@ -41,7 +39,7 @@ int		key_release(int keycode, t_env *env)
 {
 	if (keycode == 65307)
 	{
-		close_window(keycode, env);
+		close_window(env);
 	}
 	if (keycode == 65361)
 		env->left = 0;

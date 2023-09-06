@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhenry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:57:36 by mhenry            #+#    #+#             */
-/*   Updated: 2019/11/14 12:34:57 by mhenry           ###   ########.fr       */
+/*   Updated: 2023/09/06 17:22:41 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char		**ft_split(char const *s, char c)
 		return (NULL);
 	ft_memset(tab, 0, sizeof(char *) * len);
 	if (fill_split(tab, s, c, len))
-		ft_tabdel(tab);
+		ft_tabdel(&tab);
 	tab[len] = NULL;
 	return (tab);
 }

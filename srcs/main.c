@@ -6,7 +6,7 @@
 /*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 00:07:02 by martin            #+#    #+#             */
-/*   Updated: 2023/09/06 15:56:18 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 19:51:18 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int		main(int argc, char **argv)
 	if (!(env->conf->file = ft_strdup(argv[1])))
 		ft_error("failed to allocate conf.file\n", env);
 	launch_game(env);
-
 	ft_clear_env(env);
 	return (0);
 }
