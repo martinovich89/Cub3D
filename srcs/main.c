@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 00:07:02 by martin            #+#    #+#             */
-/*   Updated: 2020/10/17 00:07:03 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 15:56:18 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	launch_game(t_env *env)
 	parse_map(env);
 	init_player(env);
 	init_mlx(env);
+
 	if (env->conf->is_bmp)
 	{
 		reset_sheet(env);
@@ -86,13 +87,14 @@ int		main(int argc, char **argv)
 
 	if ((env = env_alloc()) == NULL)
 		ft_error("failed to allocate env\n", env);
+
 	check_arg(env, argc, argv);
 	check_fd(argv, env);
 	init_conf(env->conf);
 	if (!(env->conf->file = ft_strdup(argv[1])))
 		ft_error("failed to allocate conf.file\n", env);
 	launch_game(env);
+
 	ft_clear_env(env);
-	exit(0);
 	return (0);
 }

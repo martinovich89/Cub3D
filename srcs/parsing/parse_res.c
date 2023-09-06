@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_res.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:50:18 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:50:20 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/06 15:57:50 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	set_res_wh(t_env *env, int x, int y)
 		env->conf->res_h = h;
 	if (y <= h)
 		env->conf->res_h = y;
+	mlx_destroy_display(env->mlx);
 	free(env->mlx);
 	env->mlx = NULL;
 }
