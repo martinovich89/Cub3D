@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: martin <martin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 23:50:52 by martin            #+#    #+#             */
-/*   Updated: 2020/10/16 23:50:54 by martin           ###   ########.fr       */
+/*   Updated: 2023/09/08 10:21:21 by martin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ void	map_all_calc(t_env *env, int i)
 	texxy_calc(env);
 }
 
-void	apply_moves(t_env *env)
-{
-	int pwet;
-
-	pwet = 0;
-	(env->left == 1)
-	? rotation(&env->map->dir, (env->map->fov / 50000 * -1)) : pwet--;
-	(env->right == 1)
-	? rotation(&env->map->dir, (env->map->fov / 50000)) : pwet--;
-	(env->up == 1) ? translation(env, 0) : pwet++;
-	(env->down == 1) ? translation(env, 2) : pwet--;
-	(env->strafe_left == 1) ? translation(env, 3) : pwet--;
-	(env->strafe_right == 1) ? translation(env, 1) : pwet--;
+void apply_moves(t_env *env) {
+	if (env->left == 1)
+		rotation(&env->map->dir, (env->map->fov / 50000 * -1));
+	if (env->right == 1)
+		rotation(&env->map->dir, (env->map->fov / 50000));
+	if (env->up == 1)
+		translation(env, 0);
+	if (env->down == 1)
+		translation(env, 2);
+	if (env->strafe_left == 1)
+		translation(env, 3);
+	if (env->strafe_right == 1)
+		translation(env, 1);
 }
 
 void	ray_casting(t_env *env)
